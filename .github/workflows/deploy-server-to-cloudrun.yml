@@ -30,7 +30,7 @@ jobs:
         run: cd server && go test -v ./...
 
   deploy:
-    if: github.ref == '/refs/head/main'
+    if: github.ref == 'refs/head/main'
     needs: build_and_test
     permissions:
       contents: "read"
