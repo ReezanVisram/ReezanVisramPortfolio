@@ -195,6 +195,7 @@ func main() {
 				fmt.Printf("Could not delete element from mongo: %s\n", err.Error())
 				return
 			}
+
 		}
 	})
 
