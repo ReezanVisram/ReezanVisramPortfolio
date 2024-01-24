@@ -10,7 +10,6 @@ import (
 	"io"
 	"net/http"
 	"os"
-	domain "reezanvisramportfolio/domain/project"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -196,9 +195,6 @@ func main() {
 				fmt.Printf("Could not delete element from mongo: %s\n", err.Error())
 				return
 			}
-
-			project := domain.Project{}
-			fmt.Printf("%s", project.Name)
 		}
 	})
 
