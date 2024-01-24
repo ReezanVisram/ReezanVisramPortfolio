@@ -63,7 +63,7 @@ type Project struct {
 func main() {
 	r := chi.NewRouter()
 
-	mongoURI := os.Getenv("MONGODB_URI")
+	mongoURI := fmt.Sprintf("%s://%s:%s@%s/%s", os.Getenv("MONGODB_CONNECTION_METHOD"), os.Getenv("MONGODB_USERNAME"), os.Getenv("MONGODB_PASSWORD"), os.Getenv("MONGODB_HOST"), os.Getenv("MONGODB_CONNECTION_OPTIONS"))
 
 	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(mongoURI))
 	if err != nil {
@@ -198,5 +198,5 @@ func main() {
 		}
 	})
 
-	http.ListenAndServe(":3000", r)
+	http.ListenAndServe(fmt.Sprintf(":%s", os.Getenv("PORT")), r)
 }
