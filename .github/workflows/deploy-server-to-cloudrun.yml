@@ -7,7 +7,7 @@ on:
 env:
   PROJECT_ID: reezan-visram-projects
   GAR_LOCATION: us-central1
-  SERVICE: reezanvisramportfolio-server
+  SERVICE: reezanvisramportfolioserver
   REPOSITORY: reezanvisramportfolio
   REGION: us-central1
   BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
