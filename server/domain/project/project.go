@@ -1,5 +1,11 @@
 package domain
 
 type Project struct {
-	Name string
+	Name         string   `bson:"name"`
+	Description  string   `bson:"description"`
+	RepoLink     string   `bson:"repo_link"`
+	ReleaseLink  string   `bson:"release_link"`
+	ImageLink    string   `bson:"image_link"`
+	IsHardware   bool     `bson:"is_hardware"`
+	Technologies []string `bson:"technologies"`
 }
