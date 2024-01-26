@@ -58,7 +58,7 @@ func (wr *webhookRouter) PostWebhookHandler(w http.ResponseWriter, r *http.Reque
 		}
 
 		if starWebhookRequest.Action == "created" {
-			err := wr.webhookService.HandleStarWebhookCreated(starWebhookRequest.Repository.Name,
+			err := wr.webhookService.HandleStarWebhookCreated(r.Context(), starWebhookRequest.Repository.Name,
 				starWebhookRequest.Repository.Description,
 				starWebhookRequest.Repository.RepoLink,
 				starWebhookRequest.Repository.ReleaseLink,
@@ -69,7 +69,7 @@ func (wr *webhookRouter) PostWebhookHandler(w http.ResponseWriter, r *http.Reque
 				return
 			}
 		} else if starWebhookRequest.Action == "deleted" {
-			err := wr.webhookService.HandleStarWebhookDeleted(starWebhookRequest.Repository.Name)
+			err := wr.webhookService.HandleStarWebhookDeleted(r.Context(), starWebhookRequest.Repository.Name)
 			if err != nil {
 				encodeError(w, err)
 				return

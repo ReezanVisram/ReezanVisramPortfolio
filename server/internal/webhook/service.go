@@ -1,14 +1,15 @@
 package webhook
 
 import (
+	"context"
 	"fmt"
 	domain "reezanvisramportfolio/domain/project"
 	"reezanvisramportfolio/internal/database"
 )
 
 type WebhookService interface {
-	HandleStarWebhookCreated(repoName string, repoDescription string, repoLink string, repoReleaseLink string, repoDefaultBranch string, repoTags []string) error
-	HandleStarWebhookDeleted(repoName string) error
+	HandleStarWebhookCreated(ctx context.Context, repoName string, repoDescription string, repoLink string, repoReleaseLink string, repoDefaultBranch string, repoTags []string) error
+	HandleStarWebhookDeleted(ctx context.Context, repoName string) error
 }
 
 type webhookService struct {
@@ -21,7 +22,7 @@ func NewWebhookService(projectRepository database.ProjectRepository) WebhookServ
 	}
 }
 
-func (ws *webhookService) HandleStarWebhookCreated(repoName string, repoDescription string, repoLink string, repoReleaseLink string, repoDefaultBranch string, repoTags []string) error {
+func (ws *webhookService) HandleStarWebhookCreated(ctx context.Context, repoName string, repoDescription string, repoLink string, repoReleaseLink string, repoDefaultBranch string, repoTags []string) error {
 	project := domain.Project{
 		Name:        repoName,
 		Description: repoDescription,
@@ -39,13 +40,13 @@ func (ws *webhookService) HandleStarWebhookCreated(repoName string, repoDescript
 		}
 	}
 
-	err := ws.projectRepository.InsertProject(project)
+	err := ws.projectRepository.InsertProject(ctx, project)
 
 	return err
 }
 
-func (ws *webhookService) HandleStarWebhookDeleted(repoName string) error {
-	err := ws.projectRepository.RemoveProjectByName(repoName)
+func (ws *webhookService) HandleStarWebhookDeleted(ctx context.Context, repoName string) error {
+	err := ws.projectRepository.RemoveProjectByName(ctx, repoName)
 
 	return err
 }
