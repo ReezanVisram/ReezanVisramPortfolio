@@ -6,7 +6,9 @@ import (
 	"encoding/hex"
 	"fmt"
 	"io"
+	"log/slog"
 	"net/http"
+	"reezanvisramportfolio/internal/custom_logging"
 )
 
 type WebhookRouter interface {
@@ -16,18 +18,21 @@ type WebhookRouter interface {
 }
 
 type webhookRouter struct {
+	logger         *slog.Logger
 	webhookSecret  string
 	webhookService WebhookService
 }
 
-func NewWebhookRouter(webhookSecret string, webhookService WebhookService) WebhookRouter {
+func NewWebhookRouter(logger *slog.Logger, webhookSecret string, webhookService WebhookService) WebhookRouter {
 	return &webhookRouter{
+		logger:         logger,
 		webhookSecret:  webhookSecret,
 		webhookService: webhookService,
 	}
 }
 
 func (wr *webhookRouter) PostWebhookHandler(w http.ResponseWriter, r *http.Request) {
+	wr.logger.Info("webhookRouter.PostWebhookHandler", "path", "/webhooks/", "method", "POST", "correlation_id", r.Context().Value(custom_logging.KeyCorrelationId))
 	payload, err := io.ReadAll(r.Body)
 	if err != nil {
 		encodeError(w, ErrCouldNotReadBody)
@@ -36,13 +41,16 @@ func (wr *webhookRouter) PostWebhookHandler(w http.ResponseWriter, r *http.Reque
 
 	err = wr.validateWebhookSignature(payload, r.Header.Get("X-Hub-Signature-256"))
 	if err != nil {
+		wr.logger.Error("webhookRouter.PostWebhookHandler", "signature", r.Header.Get("X-Hub-Signature-256"), "err", err.Error(), "correlation_id", r.Context().Value(custom_logging.KeyCorrelationId))
 		encodeError(w, err)
 		return
 	}
 
 	if r.Header.Get("X-Github-Event") == "star" {
+		wr.logger.Info("webhookRouter.PostWebhookHandler", "event", "star", "correlation_id", r.Context().Value(custom_logging.KeyCorrelationId))
 		starWebhookRequest, err := decodeStarWebhookRequest(payload)
 		if err != nil {
+			wr.logger.Error("webhookRouter.PostWebhookHandler", "err", err.Error(), "correlation_id", r.Context().Value(custom_logging.KeyCorrelationId))
 			encodeError(w, err)
 			return
 		}
@@ -53,11 +61,13 @@ func (wr *webhookRouter) PostWebhookHandler(w http.ResponseWriter, r *http.Reque
 			starWebhookRequest.Repository.IsFork)
 
 		if err != nil {
+			wr.logger.Error("webhookRouter.PostWebhookHandler", "err", err.Error(), "correlation_id", r.Context().Value(custom_logging.KeyCorrelationId))
 			encodeError(w, err)
 			return
 		}
 
 		if starWebhookRequest.Action == "created" {
+			wr.logger.Info("webhookRouter.PostWebhookHandler", "action", "created", "repository_name", starWebhookRequest.Repository.Name, "correlation_id", r.Context().Value(custom_logging.KeyCorrelationId))
 			err := wr.webhookService.HandleStarWebhookCreated(r.Context(), starWebhookRequest.Repository.Name,
 				starWebhookRequest.Repository.Description,
 				starWebhookRequest.Repository.RepoLink,
@@ -65,18 +75,22 @@ func (wr *webhookRouter) PostWebhookHandler(w http.ResponseWriter, r *http.Reque
 				starWebhookRequest.Repository.DefaultBranch,
 				starWebhookRequest.Repository.Tags)
 			if err != nil {
+				wr.logger.Error("webhookRouter.PostWebhookHandler", "err", err.Error(), "correlation_id", r.Context().Value(custom_logging.KeyCorrelationId))
 				encodeError(w, err)
 				return
 			}
 		} else if starWebhookRequest.Action == "deleted" {
+			wr.logger.Info("webhookRouter.PostWebhookHandler", "action", "deleted", "repository_name", starWebhookRequest.Repository.Name, "correlation_id", r.Context().Value(custom_logging.KeyCorrelationId))
 			err := wr.webhookService.HandleStarWebhookDeleted(r.Context(), starWebhookRequest.Repository.Name)
 			if err != nil {
+				wr.logger.Error("webhookRouter.PostWebhookHandler", "err", err.Error(), "correlation_id", r.Context().Value(custom_logging.KeyCorrelationId))
 				encodeError(w, err)
 				return
 			}
 		}
 	}
 
+	wr.logger.Info("webhookRouter.PostWebhookHandler", "outcome", "success", "correlation_id", r.Context().Value(custom_logging.KeyCorrelationId))
 	w.WriteHeader(200)
 }
 

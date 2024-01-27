@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"log/slog"
 	"net/http"
 	"os"
 	"reezanvisramportfolio/internal/custom_middleware"
@@ -11,7 +12,6 @@ import (
 	"reezanvisramportfolio/internal/webhook"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/chi/v5/middleware"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -37,19 +37,21 @@ func main() {
 	}
 
 	defer func() {
-		if err := client.Disconnect(context.TODO()); err != nil {
+		if err := client.Disconnect(context.Background()); err != nil {
 			panic(err)
 		}
 	}()
 
+	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
+
 	projectCollection := client.Database("reezanvisramportfolio").Collection("projects")
 	projectRepo := database.NewProjectRepository(projectCollection)
 
-	webhookService := webhook.NewWebhookService(projectRepo)
-	webhookRouter := webhook.NewWebhookRouter(WEBHOOK_SECRET, webhookService)
+	webhookService := webhook.NewWebhookService(logger, projectRepo)
+	webhookRouter := webhook.NewWebhookRouter(logger, WEBHOOK_SECRET, webhookService)
 
-	r.Use(middleware.Logger)
 	r.Use(custom_middleware.ContentTypeMiddleware)
+	r.Use(custom_middleware.CorrelationIdMiddleware)
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		response, err := json.Marshal(HomeResponse{
