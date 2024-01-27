@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
-	custom_middleware "reezanvisramportfolio/internal/customer_middleware"
+	"reezanvisramportfolio/internal/custom_middleware"
 	"reezanvisramportfolio/internal/database"
 	"reezanvisramportfolio/internal/webhook"
 
