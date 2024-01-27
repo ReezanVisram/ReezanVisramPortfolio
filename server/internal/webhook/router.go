@@ -9,6 +9,7 @@ import (
 	"log/slog"
 	"net/http"
 	"reezanvisramportfolio/internal/custom_logging"
+	"strconv"
 )
 
 type WebhookRouter interface {
@@ -67,8 +68,11 @@ func (wr *webhookRouter) PostWebhookHandler(w http.ResponseWriter, r *http.Reque
 		}
 
 		if starWebhookRequest.Action == "created" {
-			wr.logger.Info("webhookRouter.PostWebhookHandler", "action", "created", "repository_name", starWebhookRequest.Repository.Name, "correlation_id", r.Context().Value(custom_logging.KeyCorrelationId))
-			err := wr.webhookService.HandleStarWebhookCreated(r.Context(), starWebhookRequest.Repository.Name,
+			wr.logger.Info("webhookRouter.PostWebhookHandler", "action", "created", "repository_name", starWebhookRequest.Repository.Name, "repository_id", strconv.FormatInt(starWebhookRequest.Repository.Id, 10), "correlation_id", r.Context().Value(custom_logging.KeyCorrelationId))
+			err := wr.webhookService.HandleStarWebhookCreated(
+				r.Context(),
+				starWebhookRequest.Repository.Name,
+				starWebhookRequest.Repository.Id,
 				starWebhookRequest.Repository.Description,
 				starWebhookRequest.Repository.RepoLink,
 				starWebhookRequest.Repository.ReleaseLink,
@@ -81,7 +85,7 @@ func (wr *webhookRouter) PostWebhookHandler(w http.ResponseWriter, r *http.Reque
 			}
 		} else if starWebhookRequest.Action == "deleted" {
 			wr.logger.Info("webhookRouter.PostWebhookHandler", "action", "deleted", "repository_name", starWebhookRequest.Repository.Name, "correlation_id", r.Context().Value(custom_logging.KeyCorrelationId))
-			err := wr.webhookService.HandleStarWebhookDeleted(r.Context(), starWebhookRequest.Repository.Name)
+			err := wr.webhookService.HandleStarWebhookDeleted(r.Context(), starWebhookRequest.Repository.Id)
 			if err != nil {
 				wr.logger.Error("webhookRouter.PostWebhookHandler", "err", err.Error(), "correlation_id", r.Context().Value(custom_logging.KeyCorrelationId))
 				encodeError(w, err)

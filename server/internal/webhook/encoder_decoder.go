@@ -15,7 +15,7 @@ func encodeError(w http.ResponseWriter, err error) {
 		w.WriteHeader(http.StatusUnprocessableEntity)
 	case ErrCouldNotReadBody, ErrInvalidStarWebhookRequestBody:
 		w.WriteHeader(http.StatusBadRequest)
-	case ErrInvalidSender, ErrInvalidOwner, ErrRepoPrivate, ErrIsFork:
+	case ErrInvalidSender, ErrInvalidOwner, ErrRepoPrivate, ErrIsFork, ErrProjectExists, ErrProjectDoesNotExist:
 		w.WriteHeader(http.StatusPreconditionFailed)
 	default:
 		w.WriteHeader(http.StatusInternalServerError)

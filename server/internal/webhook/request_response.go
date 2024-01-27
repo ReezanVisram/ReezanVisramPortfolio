@@ -8,6 +8,7 @@ type StarWebhookRequest struct {
 
 type StarWebhookRepositoryRequest struct {
 	Name          string                  `json:"name"`
+	Id            int64                   `json:"id"`
 	IsPrivate     bool                    `json:"private"`
 	Owner         StarWebhookOwnerRequest `json:"owner"`
 	Description   string                  `json:"description"`

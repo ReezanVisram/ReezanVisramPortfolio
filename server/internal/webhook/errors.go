@@ -11,4 +11,6 @@ var (
 	ErrInvalidOwner                  = errors.New("that user's repos are not permitted to be featured as projects")
 	ErrRepoPrivate                   = errors.New("private repos are not permitted to be featured as projects")
 	ErrIsFork                        = errors.New("forks are not permitted to be featured as projects")
+	ErrProjectExists                 = errors.New("that project already exists, cannot create")
+	ErrProjectDoesNotExist           = errors.New("that project does not exist, cannot delete")
 )

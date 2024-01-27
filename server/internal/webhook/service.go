@@ -7,18 +7,23 @@ import (
 	domain "reezanvisramportfolio/domain/project"
 	"reezanvisramportfolio/internal/custom_logging"
 	"reezanvisramportfolio/internal/database"
+	"strconv"
+
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type WebhookService interface {
 	HandleStarWebhookCreated(
 		ctx context.Context,
 		repoName string,
+		repoId int64,
 		repoDescription string,
 		repoLink string,
 		repoReleaseLink string,
 		repoDefaultBranch string,
 		repoTags []string) error
-	HandleStarWebhookDeleted(ctx context.Context, repoName string) error
+	HandleStarWebhookDeleted(ctx context.Context, repoId int64) error
+	projectExists(ctx context.Context, repoId int64) bool
 }
 
 type webhookService struct {
@@ -36,14 +41,21 @@ func NewWebhookService(logger *slog.Logger, projectRepository database.ProjectRe
 func (ws *webhookService) HandleStarWebhookCreated(
 	ctx context.Context,
 	repoName string,
+	repoId int64,
 	repoDescription string,
 	repoLink string,
 	repoReleaseLink string,
 	repoDefaultBranch string,
 	repoTags []string) error {
-	ws.logger.Info("webhookService.HandleStarWebhookCreated", "repo_name", repoName, "repo_description", repoDescription, "repo_link", repoLink, "repo_release_link", repoReleaseLink, "correlation_id", ctx.Value(custom_logging.KeyCorrelationId))
+	ws.logger.Info("webhookService.HandleStarWebhookCreated", "repo_name", repoName, "repo_description", "repo_id", strconv.FormatInt(repoId, 10), repoDescription, "repo_link", repoLink, "repo_release_link", repoReleaseLink, "correlation_id", ctx.Value(custom_logging.KeyCorrelationId))
+
+	if ws.projectExists(ctx, repoId) {
+		return ErrProjectExists
+	}
+
 	project := domain.Project{
 		Name:        repoName,
+		Id:          repoId,
 		Description: repoDescription,
 		RepoLink:    repoLink,
 		ReleaseLink: repoReleaseLink,
@@ -69,14 +81,24 @@ func (ws *webhookService) HandleStarWebhookCreated(
 	return nil
 }
 
-func (ws *webhookService) HandleStarWebhookDeleted(ctx context.Context, repoName string) error {
-	ws.logger.Info("webhookService.HandleStarWebhookDeleted", "repo_name", repoName, "correlation_id", ctx.Value(custom_logging.KeyCorrelationId))
+func (ws *webhookService) HandleStarWebhookDeleted(ctx context.Context, repoId int64) error {
+	ws.logger.Info("webhookService.HandleStarWebhookDeleted", "repo_id", strconv.FormatInt(repoId, 10), "correlation_id", ctx.Value(custom_logging.KeyCorrelationId))
 
-	err := ws.projectRepository.RemoveProjectByName(ctx, repoName)
+	if !ws.projectExists(ctx, repoId) {
+		return ErrProjectDoesNotExist
+	}
+
+	err := ws.projectRepository.RemoveProjectById(ctx, repoId)
 	if err != nil {
 		ws.logger.Error("webhookService.HandleStarWebhookDeleted", "err", err.Error(), "correlation_id", ctx.Value(custom_logging.KeyCorrelationId))
 		return err
 	}
 
 	return nil
+}
+
+func (ws *webhookService) projectExists(ctx context.Context, repoId int64) bool {
+	_, err := ws.projectRepository.GetProjectById(ctx, repoId)
+
+	return !(err == mongo.ErrNoDocuments)
 }

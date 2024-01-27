@@ -9,8 +9,9 @@ import (
 )
 
 type ProjectRepository interface {
+	GetProjectById(ctx context.Context, id int64) (*domain.Project, error)
 	InsertProject(ctx context.Context, project domain.Project) error
-	RemoveProjectByName(ctx context.Context, name string) error
+	RemoveProjectById(ctx context.Context, id int64) error
 }
 
 type projectRepository struct {
@@ -23,14 +24,27 @@ func NewProjectRepository(projectCollection *mongo.Collection) ProjectRepository
 	}
 }
 
+func (pr *projectRepository) GetProjectById(ctx context.Context, id int64) (*domain.Project, error) {
+	filter := bson.D{{Key: "id", Value: id}}
+
+	var result domain.Project
+	err := pr.projectCollection.FindOne(ctx, filter).Decode(&result)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &result, nil
+}
+
 func (pr *projectRepository) InsertProject(ctx context.Context, project domain.Project) error {
 	_, err := pr.projectCollection.InsertOne(ctx, project)
 
 	return err
 }
 
-func (pr *projectRepository) RemoveProjectByName(ctx context.Context, name string) error {
-	filter := bson.D{{Key: "name", Value: name}}
+func (pr *projectRepository) RemoveProjectById(ctx context.Context, id int64) error {
+	filter := bson.D{{Key: "id", Value: id}}
 
 	_, err := pr.projectCollection.DeleteOne(ctx, filter)
 
