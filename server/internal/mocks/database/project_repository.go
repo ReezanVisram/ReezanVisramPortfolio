@@ -11,7 +11,7 @@ package mock_database
 
 import (
 	context "context"
-	project "reezanvisramportfolio/domain/project"
+	domain "reezanvisramportfolio/domain/project"
 	reflect "reflect"
 
 	gomock "go.uber.org/mock/gomock"
@@ -41,10 +41,10 @@ func (m *MockProjectRepository) EXPECT() *MockProjectRepositoryMockRecorder {
 }
 
 // GetProjectById mocks base method.
-func (m *MockProjectRepository) GetProjectById(ctx context.Context, id int64) (*project.Project, error) {
+func (m *MockProjectRepository) GetProjectById(ctx context.Context, id int64) (*domain.Project, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetProjectById", ctx, id)
-	ret0, _ := ret[0].(*project.Project)
+	ret0, _ := ret[0].(*domain.Project)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -56,7 +56,7 @@ func (mr *MockProjectRepositoryMockRecorder) GetProjectById(ctx, id any) *gomock
 }
 
 // InsertProject mocks base method.
-func (m *MockProjectRepository) InsertProject(ctx context.Context, project project.Project) error {
+func (m *MockProjectRepository) InsertProject(ctx context.Context, project domain.Project) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "InsertProject", ctx, project)
 	ret0, _ := ret[0].(error)

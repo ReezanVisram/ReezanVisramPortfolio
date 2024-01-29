@@ -14,11 +14,14 @@ import (
 	"github.com/stretchr/testify/assert"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.uber.org/mock/gomock"
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 type webhookServiceMock struct {
 	logger            *slog.Logger
 	projectRepository *mock_database.MockProjectRepository
+	caser             cases.Caser
 }
 
 func newServiceMock(t *testing.T) webhookServiceMock {
@@ -29,6 +32,7 @@ func newServiceMock(t *testing.T) webhookServiceMock {
 	return webhookServiceMock{
 		logger:            logger,
 		projectRepository: projectRepo,
+		caser:             cases.Title(language.BritishEnglish),
 	}
 }
 
@@ -42,14 +46,14 @@ func TestHandleStarWebhookCreated(t *testing.T) {
 	repoTags := []string{"software", "c++", "opengl"}
 
 	sampleProject := domain.Project{
-		Name:         repoName,
+		Name:         "Sample Project",
 		Id:           repoId,
 		Description:  repoDescription,
 		RepoLink:     repoLink,
 		ReleaseLink:  repoReleaseLink,
 		ImageLink:    fmt.Sprintf("%s/blob/%s/featured_screenshot.png", repoLink, repoDefaultBranch),
 		IsHardware:   false,
-		Technologies: []string{"c++", "opengl"},
+		Technologies: []string{"C++", "OpenGL"},
 	}
 
 	randomErr := errors.New("random error")

@@ -66,17 +66,3 @@ func (mr *MockWebhookServiceMockRecorder) HandleStarWebhookDeleted(ctx, repoId a
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "HandleStarWebhookDeleted", reflect.TypeOf((*MockWebhookService)(nil).HandleStarWebhookDeleted), ctx, repoId)
 }
-
-// projectExists mocks base method.
-func (m *MockWebhookService) projectExists(ctx context.Context, repoId int64) bool {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "projectExists", ctx, repoId)
-	ret0, _ := ret[0].(bool)
-	return ret0
-}
-
-// projectExists indicates an expected call of projectExists.
-func (mr *MockWebhookServiceMockRecorder) projectExists(ctx, repoId any) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "projectExists", reflect.TypeOf((*MockWebhookService)(nil).projectExists), ctx, repoId)
-}

@@ -8,8 +8,11 @@ import (
 	"reezanvisramportfolio/internal/custom_logging"
 	"reezanvisramportfolio/internal/database"
 	"strconv"
+	"strings"
 
 	"go.mongodb.org/mongo-driver/mongo"
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 type WebhookService interface {
@@ -25,15 +28,19 @@ type WebhookService interface {
 	HandleStarWebhookDeleted(ctx context.Context, repoId int64) error
 }
 
+var specialTechnologyCases = map[string]string{"opengl": "OpenGL"}
+
 type webhookService struct {
 	logger            *slog.Logger
 	projectRepository database.ProjectRepository
+	caser             cases.Caser
 }
 
 func NewWebhookService(logger *slog.Logger, projectRepository database.ProjectRepository) WebhookService {
 	return &webhookService{
 		logger:            logger,
 		projectRepository: projectRepository,
+		caser:             cases.Title(language.BritishEnglish),
 	}
 }
 
@@ -53,7 +60,7 @@ func (ws *webhookService) HandleStarWebhookCreated(
 	}
 
 	project := domain.Project{
-		Name:        repoName,
+		Name:        strings.Replace(repoName, "-", " ", -1),
 		Id:          repoId,
 		Description: repoDescription,
 		RepoLink:    repoLink,
@@ -67,7 +74,7 @@ func (ws *webhookService) HandleStarWebhookCreated(
 			ws.logger.Info("webhookService.HandleStarWebhookCreated", "repo_is_hardware", "true", "correlation_id", ctx.Value(custom_logging.KeyCorrelationId))
 			project.IsHardware = true
 		} else if tag != "software" {
-			project.Technologies = append(project.Technologies, tag)
+			project.Technologies = append(project.Technologies, ws.convertTag(tag))
 		}
 	}
 
@@ -100,4 +107,13 @@ func (ws *webhookService) projectExists(ctx context.Context, repoId int64) bool 
 	_, err := ws.projectRepository.GetProjectById(ctx, repoId)
 
 	return !(err == mongo.ErrNoDocuments)
+}
+
+func (ws *webhookService) convertTag(tag string) string {
+	convertedString, ok := specialTechnologyCases[tag]
+	if ok {
+		return convertedString
+	}
+
+	return ws.caser.String(tag)
 }
