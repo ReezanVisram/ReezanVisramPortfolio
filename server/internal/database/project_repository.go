@@ -12,6 +12,7 @@ type ProjectRepository interface {
 	GetProjectById(ctx context.Context, id int64) (*domain.Project, error)
 	InsertProject(ctx context.Context, project domain.Project) error
 	RemoveProjectById(ctx context.Context, id int64) error
+	GetAllProjects(ctx context.Context) ([]domain.Project, error)
 }
 
 type projectRepository struct {
@@ -49,4 +50,19 @@ func (pr *projectRepository) RemoveProjectById(ctx context.Context, id int64) er
 	_, err := pr.projectCollection.DeleteOne(ctx, filter)
 
 	return err
+}
+
+func (pr *projectRepository) GetAllProjects(ctx context.Context) ([]domain.Project, error) {
+	filter := bson.D{{}}
+	cursor, err := pr.projectCollection.Find(ctx, filter)
+	if err != nil {
+		return nil, err
+	}
+
+	var results []domain.Project
+	if err = cursor.All(ctx, &results); err != nil {
+		return nil, err
+	}
+
+	return results, nil
 }

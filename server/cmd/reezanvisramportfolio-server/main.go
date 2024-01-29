@@ -9,6 +9,7 @@ import (
 	"os"
 	"reezanvisramportfolio/internal/custom_middleware"
 	"reezanvisramportfolio/internal/database"
+	"reezanvisramportfolio/internal/project"
 	"reezanvisramportfolio/internal/webhook"
 
 	"github.com/go-chi/chi/v5"
@@ -50,6 +51,9 @@ func main() {
 	webhookService := webhook.NewWebhookService(logger, projectRepo)
 	webhookRouter := webhook.NewWebhookRouter(logger, WEBHOOK_SECRET, webhookService)
 
+	projectService := project.NewProjectService(logger, projectRepo)
+	projectRouter := project.NewProjectRouter(logger, projectService)
+
 	r.Use(custom_middleware.ContentTypeMiddleware)
 	r.Use(custom_middleware.CorrelationIdMiddleware)
 
@@ -69,6 +73,10 @@ func main() {
 
 	r.Route("/webhooks", func(r chi.Router) {
 		r.Post("/", webhookRouter.PostWebhookHandler)
+	})
+
+	r.Route("/projects", func(r chi.Router) {
+		r.Get("/", projectRouter.GetProjects)
 	})
 
 	http.ListenAndServe(fmt.Sprintf(":%s", os.Getenv("PORT")), r)
