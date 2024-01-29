@@ -14,8 +14,6 @@ import (
 
 type WebhookRouter interface {
 	PostWebhookHandler(w http.ResponseWriter, r *http.Request)
-	validateWebhookSignature(payload []byte, receivedSignature string) error
-	validateStarWebhookRequest(senderUsername string, ownerUsername string, isPrivate bool, isFork bool) error
 }
 
 type webhookRouter struct {

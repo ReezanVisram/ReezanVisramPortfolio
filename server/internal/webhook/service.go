@@ -23,7 +23,6 @@ type WebhookService interface {
 		repoDefaultBranch string,
 		repoTags []string) error
 	HandleStarWebhookDeleted(ctx context.Context, repoId int64) error
-	projectExists(ctx context.Context, repoId int64) bool
 }
 
 type webhookService struct {
