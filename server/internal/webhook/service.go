@@ -28,7 +28,7 @@ type WebhookService interface {
 	HandleStarWebhookDeleted(ctx context.Context, repoId int64) error
 }
 
-var specialTechnologyCases = map[string]string{"opengl": "OpenGL"}
+var specialTechnologyCases = map[string]string{"opengl": "OpenGL", "cpp": "C++"}
 
 type webhookService struct {
 	logger            *slog.Logger

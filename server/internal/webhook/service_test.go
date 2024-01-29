@@ -43,7 +43,7 @@ func TestHandleStarWebhookCreated(t *testing.T) {
 	repoLink := "https://github.com/Sample-Project/"
 	repoReleaseLink := "https://sampleproject.reezanvisram.com/"
 	repoDefaultBranch := "main"
-	repoTags := []string{"software", "c++", "opengl"}
+	repoTags := []string{"software", "cpp", "opengl"}
 
 	sampleProject := domain.Project{
 		Name:         "Sample Project",
