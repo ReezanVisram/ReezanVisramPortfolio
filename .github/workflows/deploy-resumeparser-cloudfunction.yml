@@ -29,3 +29,4 @@ jobs:
           entry_point: "parse_resume"
           memory_mb: "128"
           region: "us-central1"
+          source_dir: "./resumeparser"
