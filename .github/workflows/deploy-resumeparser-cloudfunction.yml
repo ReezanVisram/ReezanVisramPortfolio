@@ -31,4 +31,4 @@ jobs:
           region: "us-central1"
           source_dir: "./resumeparser"
           event_trigger_type: "google.storage.object.finalize"
-          event_trigger_resource: "reezanvisramportfolio-static-files"
+          event_trigger_resource: "projects/reezan-visram-projects/buckets/reezanvisramportfolio-static-files"
