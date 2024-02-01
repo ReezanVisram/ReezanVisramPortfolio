@@ -1,1 +1,6 @@
 **/.envrc
+**/venv
+**/__pycache__
+resumeparser/testing.py
+resumeparser/resume.pdf
+resumeparser/output.json

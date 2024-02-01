@@ -1,0 +1,4 @@
+/venv
+**/**.json
+**/**.pdf
+**/testing.py

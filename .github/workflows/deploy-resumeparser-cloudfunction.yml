@@ -1,0 +1,31 @@
+name: Deploy the Resume Parser Cloud Function
+
+on:
+  push:
+    paths:
+      - resumeparser/**
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs_on: "ubuntu-latest"
+    permissions:
+      contents: "read"
+      id-token: "write"
+
+    steps:
+      - uses: "actions/checkout@v4"
+
+      - id: "auth"
+        uses: "google-github-actions/auth@v2"
+        with:
+          credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
+
+      - id: "deploy"
+        uses: "google-github-actions/deploy-cloud-functions@v2"
+        with:
+          name: "reezanvisramportfolio-resumeparser"
+          runtime: "python311"
+          entry_point: "parse_resume"
+          memory_mb: "128"
+          region: "us-central1"
