@@ -32,3 +32,4 @@ jobs:
           source_dir: "./resumeparser"
           event_trigger_type: "google.storage.object.finalize"
           event_trigger_resource: "projects/reezan-visram-projects/buckets/reezanvisramportfolio-static-files"
+          env_vars: GCP_PROJECT_ID="reezan-visram-projects",CLOUDSTORAGE_BUCKET_NAME="reezanvisramportfolio-static-files",CLOUDSTORAGE_EXPECTED_FILENAME="resume.pdf",DOWNLOADED_FILEPATH="./resume.pdf"

@@ -1,6 +1,7 @@
 import datetime as dt
 import json
 import logging
+import pathlib
 
 
 class JSONFormatter(logging.Formatter):
@@ -25,13 +26,24 @@ class JSONFormatter(logging.Formatter):
             always_fields["stack_info"] = self.formatStack(record.stack_info)
 
         message = {
-            key: msg_val
-            if (msg_val := always_fields.pop(val, None)) is not None
-            else getattr(record, val)
+            key: (
+                msg_val
+                if (msg_val := always_fields.pop(val, None)) is not None
+                else getattr(record, val)
+            )
             for key, val in self.fmt_keys.items()
         }
 
         message.update(always_fields)
 
-        print(message)
         return message
+
+
+def setup_logging() -> logging.Logger:
+    logger = logging.getLogger("resume_parser")
+    config_file = pathlib.Path("logging/config.json")
+    with open(config_file) as f_in:
+        config = json.load(f_in)
+    logging.config.dictConfig(config)
+
+    return logger

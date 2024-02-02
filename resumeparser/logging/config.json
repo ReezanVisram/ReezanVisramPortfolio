@@ -2,9 +2,6 @@
   "version": 1,
   "disable_existing_loggers": false,
   "formatters": {
-    "simple": {
-      "format": "%(levelname)s: %(message)s"
-    },
     "json": {
       "()": "custom_logging.JSONFormatter",
       "fmt_keys": {
@@ -28,7 +25,7 @@
   },
   "loggers": {
     "root": {
-      "level": "DEBUG",
+      "level": "INFO",
       "handlers": [
         "stdout"
       ]
