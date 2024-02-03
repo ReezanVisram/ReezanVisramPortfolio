@@ -26,11 +26,12 @@ def is_valid_cloud_event(cloud_event: functions_framework.cloud_event) -> bool:
         print("incorrect cloud event content type")
         return False
 
-    if (
-        cloud_event.data["id"]
-        != f"{CLOUDSTORAGE_BUCKET_NAME}/{CLOUDSTORAGE_FILENAME_TO_FETCH}"
-    ):
-        print("invalid cloud event id")
+    if cloud_event.data["bucket"] != CLOUDSTORAGE_BUCKET_NAME:
+        print("invalid cloud event bucket name")
+        return False
+
+    if cloud_event.data["name"] != CLOUDSTORAGE_FILENAME_TO_FETCH:
+        print("invalid cloud event file")
         return False
 
     return True
