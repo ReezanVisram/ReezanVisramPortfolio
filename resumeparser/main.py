@@ -42,7 +42,9 @@ def download_resume(filename_to_fetch: str, filename_to_download_to: str):
     bucket = client.bucket(CLOUDSTORAGE_BUCKET_NAME)
 
     blob = bucket.blob(filename_to_fetch)
-    blob.download_to_filename(filename_to_download_to)
+    blob.download_to_filename(
+        filename_to_download_to
+    )  # ./resume.pdf for local development, /tmp/resume.pdf for running in prod
 
 
 def extract_text_from_resume(params: LAParams, filename: str) -> List[LTTextContainer]:
