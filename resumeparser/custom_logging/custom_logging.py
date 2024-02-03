@@ -1,7 +1,35 @@
 import datetime as dt
 import json
 import logging
-import pathlib
+
+
+config = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "json": {
+            "()": "custom_logging.custom_logging.JSONFormatter",
+            "fmt_keys": {
+                "level": "levelname",
+                "message": "message",
+                "timestamp": "timestamp",
+                "logger": "name",
+                "module": "module",
+                "function": "funcName",
+                "line": "lineno",
+                "thread_name": "threadName",
+            },
+        }
+    },
+    "handlers": {
+        "stdout": {
+            "class": "logging.StreamHandler",
+            "formatter": "json",
+            "stream": "ext://sys.stdout",
+        }
+    },
+    "loggers": {"root": {"level": "INFO", "handlers": ["stdout"]}},
+}
 
 
 class JSONFormatter(logging.Formatter):
@@ -41,9 +69,7 @@ class JSONFormatter(logging.Formatter):
 
 def setup_logging() -> logging.Logger:
     logger = logging.getLogger("resume_parser")
-    config_path = pathlib.Path(__file__).with_name("config.json")
-    with open(config_path) as f_in:
-        config = json.load(f_in)
+
     logging.config.dictConfig(config)
 
     return logger
