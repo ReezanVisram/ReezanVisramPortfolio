@@ -137,6 +137,7 @@ def save_experience_to_mongodb(experience: dict):
         experience_collection.insert_one(new_experience)
 
 
+# Cloud functions entry point
 @functions_framework.cloud_event
 def parse_resume(cloud_event):
     logger = setup_logging()
