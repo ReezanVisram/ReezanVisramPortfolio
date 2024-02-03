@@ -19,15 +19,18 @@ CLOUDSTORAGE_FILENAME_TO_DOWNLOAD_TO = os.environ[
 
 def is_valid_cloud_event(cloud_event: functions_framework.cloud_event) -> bool:
     if cloud_event["type"] != "google.storage.object.finalize":
+        print("incorrect cloud event type")
         return False
 
     if cloud_event.data["contentType"] != "application/pdf":
+        print("incorrect cloud event content type")
         return False
 
     if (
         cloud_event.data["id"]
         != f"{CLOUDSTORAGE_BUCKET_NAME}/{CLOUDSTORAGE_FILENAME_TO_FETCH}"
     ):
+        print("invalid cloud event id")
         return False
 
     return True
@@ -110,6 +113,7 @@ def parse_resume(cloud_event):
 
     if not is_valid_cloud_event(cloud_event):
         logger.error("invalid cloud event received")
+        print(cloud_event)
         return
 
     download_resume(
