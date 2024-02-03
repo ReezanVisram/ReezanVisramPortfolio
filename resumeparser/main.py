@@ -150,7 +150,6 @@ def parse_resume(cloud_event):
     download_resume(
         CLOUDSTORAGE_FILENAME_TO_FETCH, CLOUDSTORAGE_FILENAME_TO_DOWNLOAD_TO
     )
-
     logger.info("successfully downloaded resume")
 
     params = LAParams(line_margin=0.0)
