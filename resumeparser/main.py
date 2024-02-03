@@ -7,6 +7,7 @@ from typing import List
 from parsing_utils import init_company, is_job_title, is_location, is_start_and_end_date
 from pdfminer.high_level import extract_pages
 from pdfminer.layout import LAParams, LTTextContainer
+from pymongo import MongoClient
 
 
 GCP_PROJECT_ID = os.environ["GCP_PROJECT_ID"]
@@ -15,6 +16,12 @@ CLOUDSTORAGE_FILENAME_TO_FETCH = os.environ["CLOUDSTORAGE_FILENAME_TO_FETCH"]
 CLOUDSTORAGE_FILENAME_TO_DOWNLOAD_TO = os.environ[
     "CLOUDSTORAGE_FILENAME_TO_DOWNLOAD_TO"
 ]
+
+MONGODB_CONNECTION_METHOD = os.environ["MONGODB_CONNECTION_METHOD"]
+MONGODB_USERNAME = os.environ["MONGODB_USERNAME"]
+MONGODB_PASSWORD = os.environ["MONGODB_PASSWORD"]
+MONGODB_HOST = os.environ["MONGODB_HOST"]
+MONGODB_CONNECTION_OPTIONS = os.environ["MONGODB_CONNECTION_OPTIONS"]
 
 
 def is_valid_cloud_event(cloud_event: functions_framework.cloud_event) -> bool:
@@ -42,9 +49,7 @@ def download_resume(filename_to_fetch: str, filename_to_download_to: str):
     bucket = client.bucket(CLOUDSTORAGE_BUCKET_NAME)
 
     blob = bucket.blob(filename_to_fetch)
-    blob.download_to_filename(
-        filename_to_download_to
-    )  # ./resume.pdf for local development, /tmp/resume.pdf for running in prod
+    blob.download_to_filename(filename_to_download_to)
 
 
 def extract_text_from_resume(params: LAParams, filename: str) -> List[LTTextContainer]:
@@ -109,6 +114,29 @@ def parse_experience(elements: List[LTTextContainer]) -> dict:
     return experience
 
 
+def build_experience(company_name: str, company_information: dict) -> dict:
+    experience = {}
+    experience["name"] = company_name
+    experience["job_title"] = company_information["job_title"]
+    experience["start_and_end_date"] = company_information["start_and_end_date"]
+    experience["bullet_points"] = company_information["bullet_points"]
+    return experience
+
+
+def save_experience_to_mongodb(experience: dict):
+    client = MongoClient(
+        f"{MONGODB_CONNECTION_METHOD}://{MONGODB_USERNAME}:{MONGODB_PASSWORD}@{MONGODB_HOST}/{MONGODB_CONNECTION_OPTIONS}"
+    )
+    db = client["reezanvisramportfolio"]
+    experience_collection = db["experience"]
+    for company_name, company_information in experience.items():
+        if experience_collection.find_one({"name": company_name}) is not None:
+            experience_collection.delete_one({"name": company_name})
+
+        new_experience = build_experience(company_name, company_information)
+        experience_collection.insert_one(new_experience)
+
+
 @functions_framework.cloud_event
 def parse_resume(cloud_event):
     logger = setup_logging()
@@ -131,6 +159,7 @@ def parse_resume(cloud_event):
     logger.info("successfully extracted elements from resume")
 
     experience = parse_experience(elements)
-
     logger.info("successfully parsed experience")
-    print(json.dumps(experience, indent=4))
+
+    save_experience_to_mongodb(experience)
+    logger.info("successfully saved experience to mongodb")
