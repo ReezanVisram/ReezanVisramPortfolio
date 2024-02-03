@@ -3,7 +3,7 @@
   "disable_existing_loggers": false,
   "formatters": {
     "json": {
-      "()": "custom_logging.JSONFormatter",
+      "()": "custom_logging.custom_logging.JSONFormatter",
       "fmt_keys": {
         "level": "levelname",
         "message": "message",

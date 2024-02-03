@@ -41,7 +41,8 @@ class JSONFormatter(logging.Formatter):
 
 def setup_logging() -> logging.Logger:
     logger = logging.getLogger("resume_parser")
-    with open("./logging/config.json") as f_in:
+    config_path = pathlib.Path(__file__).with_name("config.json")
+    with open(config_path) as f_in:
         config = json.load(f_in)
     logging.config.dictConfig(config)
 
