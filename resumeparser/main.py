@@ -84,6 +84,8 @@ def parse_experience(elements: List[LTTextContainer]) -> dict:
 
         if is_in_experience_section:
             if line.split(" ", 1)[0] == "Tools:":
+                tools = line.split("Tools: ", 1)[1]
+                experience[company_name]["tools"] = tools.split(", ")
                 is_in_specific_job = False
                 is_first_line_in_specific_job = True
             else:
@@ -120,6 +122,7 @@ def build_experience(company_name: str, company_information: dict) -> dict:
     experience["job_title"] = company_information["job_title"]
     experience["start_and_end_date"] = company_information["start_and_end_date"]
     experience["bullet_points"] = company_information["bullet_points"]
+    experience["tools"] = company_information["tools"]
     return experience
 
 
