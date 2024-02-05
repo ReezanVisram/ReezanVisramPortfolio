@@ -23,11 +23,11 @@ func NewProjectRouter(logger *slog.Logger, projectService ProjectService) Projec
 }
 
 func (pr *projectRouter) GetProjects(w http.ResponseWriter, r *http.Request) {
-	pr.logger.Info("projectRouter.GetProject", "path", "/projects/", "method", "GET", "correlation_id", r.Context().Value(custom_logging.KeyCorrelationId))
+	pr.logger.Info("projectRouter.GetProjects", "path", "/projects/", "method", "GET", "correlation_id", r.Context().Value(custom_logging.KeyCorrelationId))
 
 	projects, err := pr.projectService.GetAllProjects(r.Context())
 	if err != nil {
-		pr.logger.Error("projectRouter.GetProject", "err", err.Error(), "correlation_id", r.Context().Value(custom_logging.KeyCorrelationId))
+		pr.logger.Error("projectRouter.GetProjects", "err", err.Error(), "correlation_id", r.Context().Value(custom_logging.KeyCorrelationId))
 		encodeError(w, err)
 		return
 	}

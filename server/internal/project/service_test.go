@@ -30,7 +30,7 @@ func newServiceMock(t *testing.T) projectServiceMock {
 	}
 }
 
-func TestGetProjects(t *testing.T) {
+func TestGetAllProjects(t *testing.T) {
 	projects := []domain.Project{
 		{
 			Name: "Sample Project 1",

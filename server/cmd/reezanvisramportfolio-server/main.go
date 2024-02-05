@@ -9,6 +9,7 @@ import (
 	"os"
 	"reezanvisramportfolio/internal/custom_middleware"
 	"reezanvisramportfolio/internal/database"
+	"reezanvisramportfolio/internal/experience"
 	"reezanvisramportfolio/internal/project"
 	"reezanvisramportfolio/internal/webhook"
 
@@ -46,13 +47,18 @@ func main() {
 	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
 
 	projectCollection := client.Database("reezanvisramportfolio").Collection("projects")
+	experienceCollection := client.Database("reezanvisramportfolio").Collection("experience")
 	projectRepo := database.NewProjectRepository(projectCollection)
+	experienceRepo := database.NewExperienceRepository(experienceCollection)
 
 	webhookService := webhook.NewWebhookService(logger, projectRepo)
 	webhookRouter := webhook.NewWebhookRouter(logger, WEBHOOK_SECRET, webhookService)
 
 	projectService := project.NewProjectService(logger, projectRepo)
 	projectRouter := project.NewProjectRouter(logger, projectService)
+
+	experienceService := experience.NewExperienceService(logger, experienceRepo)
+	experienceRouter := experience.NewExperienceRouter(logger, experienceService)
 
 	r.Use(custom_middleware.ContentTypeMiddleware)
 	r.Use(custom_middleware.CorrelationIdMiddleware)
@@ -77,6 +83,10 @@ func main() {
 
 	r.Route("/projects", func(r chi.Router) {
 		r.Get("/", projectRouter.GetProjects)
+	})
+
+	r.Route("/experience", func(r chi.Router) {
+		r.Get("/", experienceRouter.GetExperience)
 	})
 
 	http.ListenAndServe(fmt.Sprintf(":%s", os.Getenv("PORT")), r)

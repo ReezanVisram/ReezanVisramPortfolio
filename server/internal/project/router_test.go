@@ -31,7 +31,7 @@ func newRouterMock(t *testing.T) projectRouterMock {
 	}
 }
 
-func TestGetAllProjects(t *testing.T) {
+func Test_GetAllProjects(t *testing.T) {
 	projects := []domain.Project{
 		{
 			Name: "Project 1",
