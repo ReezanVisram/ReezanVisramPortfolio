@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"io"
 	"log/slog"
 	"net/http"
 	"os"
@@ -13,6 +14,7 @@ import (
 	"reezanvisramportfolio/internal/project"
 	"reezanvisramportfolio/internal/webhook"
 
+	"cloud.google.com/go/storage"
 	"github.com/go-chi/chi/v5"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -30,6 +32,8 @@ func main() {
 	MONGODB_PASSWORD := os.Getenv("MONGODB_PASSWORD")
 	MONGODB_HOST := os.Getenv("MONGODB_HOST")
 	MONGODB_CONNECTION_OPTIONS := os.Getenv("MONGODB_CONNECTION_OPTIONS")
+	CLOUDSTORAGE_BUCKET_NAME := os.Getenv("CLOUDSTORAGE_BUCKET_NAME")
+	CLOUDSTORAGE_FILENAME_TO_FETCH := os.Getenv("CLOUDSTORAGE_FILENAME_TO_FETCH")
 
 	r := chi.NewRouter()
 
@@ -43,6 +47,11 @@ func main() {
 			panic(err)
 		}
 	}()
+
+	storageClient, err := storage.NewClient(context.TODO())
+	if err != nil {
+		panic(err)
+	}
 
 	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
 
@@ -60,7 +69,6 @@ func main() {
 	experienceService := experience.NewExperienceService(logger, experienceRepo)
 	experienceRouter := experience.NewExperienceRouter(logger, experienceService)
 
-	r.Use(custom_middleware.ContentTypeMiddleware)
 	r.Use(custom_middleware.CorrelationIdMiddleware)
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
@@ -77,16 +85,37 @@ func main() {
 		w.Write(response)
 	})
 
-	r.Route("/webhooks", func(r chi.Router) {
-		r.Post("/", webhookRouter.PostWebhookHandler)
+	r.Get("/resume", func(w http.ResponseWriter, r *http.Request) {
+		rc, err := storageClient.Bucket(CLOUDSTORAGE_BUCKET_NAME).Object(CLOUDSTORAGE_FILENAME_TO_FETCH).NewReader(r.Context())
+		if err != nil {
+			w.WriteHeader(500)
+			return
+		}
+
+		defer rc.Close()
+		body, err := io.ReadAll(rc)
+		if err != nil {
+			w.WriteHeader(500)
+			return
+		}
+
+		w.Header().Add("Content-Type", "application/pdf")
+		w.Write(body)
 	})
 
-	r.Route("/projects", func(r chi.Router) {
-		r.Get("/", projectRouter.GetProjects)
-	})
+	r.Group(func(r chi.Router) {
+		r.Use(custom_middleware.ContentTypeMiddleware)
+		r.Route("/webhooks", func(r chi.Router) {
+			r.Post("/", webhookRouter.PostWebhookHandler)
+		})
 
-	r.Route("/experience", func(r chi.Router) {
-		r.Get("/", experienceRouter.GetExperience)
+		r.Route("/projects", func(r chi.Router) {
+			r.Get("/", projectRouter.GetProjects)
+		})
+
+		r.Route("/experience", func(r chi.Router) {
+			r.Get("/", experienceRouter.GetExperience)
+		})
 	})
 
 	http.ListenAndServe(fmt.Sprintf(":%s", os.Getenv("PORT")), r)
