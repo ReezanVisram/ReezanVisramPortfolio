@@ -8,6 +8,7 @@ import (
 	"log/slog"
 	"net/http"
 	"os"
+	"reezanvisramportfolio/internal/custom_logging"
 	"reezanvisramportfolio/internal/custom_middleware"
 	"reezanvisramportfolio/internal/database"
 	"reezanvisramportfolio/internal/experience"
@@ -72,12 +73,14 @@ func main() {
 	r.Use(custom_middleware.CorrelationIdMiddleware)
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+		logger.Info("homeRouter.GetHome", "method", "GET", "path", "/", "correlation_id", r.Context().Value(custom_logging.KeyCorrelationId))
 		response, err := json.Marshal(HomeResponse{
 			API:     "reezanvisramportfolio",
 			Version: "0.0.1",
 		})
 
 		if err != nil {
+			logger.Error("homeRouter.GetHome", "err", err.Error(), "correlation_id", r.Context().Value(custom_logging.KeyCorrelationId))
 			w.WriteHeader(500)
 			return
 		}
@@ -86,8 +89,10 @@ func main() {
 	})
 
 	r.Get("/resume", func(w http.ResponseWriter, r *http.Request) {
+		logger.Info("homeRouter.GetResume", "method", "GET", "path", "/resume", "correlation_id", r.Context().Value(custom_logging.KeyCorrelationId))
 		rc, err := storageClient.Bucket(CLOUDSTORAGE_BUCKET_NAME).Object(CLOUDSTORAGE_FILENAME_TO_FETCH).NewReader(r.Context())
 		if err != nil {
+			logger.Error("homeRouter.GetResume", "err", err.Error(), "correlation_id", r.Context().Value(custom_logging.KeyCorrelationId))
 			w.WriteHeader(500)
 			return
 		}
@@ -95,6 +100,7 @@ func main() {
 		defer rc.Close()
 		body, err := io.ReadAll(rc)
 		if err != nil {
+			logger.Error("homeRouter.GetResume", "err", err.Error(), "correlation_id", r.Context().Value(custom_logging.KeyCorrelationId))
 			w.WriteHeader(500)
 			return
 		}
