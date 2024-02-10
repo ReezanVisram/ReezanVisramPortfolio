@@ -133,7 +133,7 @@ def save_experience_to_mongodb(experience: dict):
     db = client["reezanvisramportfolio"]
     experience_collection = db["experience"]
 
-    experience_collection.delete_many()
+    experience_collection.delete_many({})
     for company_name, company_information in experience.items():
         new_experience = build_experience(company_name, company_information)
         experience_collection.insert_one(new_experience)
