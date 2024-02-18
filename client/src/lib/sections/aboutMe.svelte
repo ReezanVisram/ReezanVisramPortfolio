@@ -1,49 +1,49 @@
-<div class="aboutMeContainer">
-	<div class="introTextContainer">
+<div class="about-me-container">
+	<div class="intro-text-container">
 		<h1>Hi! I'm Reezan</h1>
 		<h2>I'm a Computer Engineering Student at the University of Waterloo</h2>
 		<p>
-			I am passionate about both software and hardware, and I'm interested in the boundaries at
-			which they meet
+			I'm passionate about both software and hardware, and I'm interested in the boundaries at which
+			they meet!
 		</p>
 	</div>
-	<div class="headshotContainer">
+	<div class="headshot-container">
 		<enhanced:img src="/static/me.webp" alt="A picture of me" />
 	</div>
 </div>
 
 <style>
-	.aboutMeContainer {
+	.about-me-container {
 		min-height: 100vh;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 	}
 
-	.introTextContainer {
+	.intro-text-container {
 		width: 42%;
 	}
 
-	.headshotContainer {
+	.headshot-container {
 		width: 42%;
 		text-align: right;
 	}
 
-	.headshotContainer img {
+	.headshot-container img {
 		width: 400px;
 		height: auto;
 	}
 
 	h1 {
-		font-size: 5rem;
+		font-size: var(--heading-font-size);
 		color: var(--text-primary-colour);
 	}
 
 	h2 {
-		font-size: 3rem;
+		font-size: var(--subheading-font-size);
 	}
 
 	p {
-		font-size: 1.5rem;
+		font-size: var(--body-font-size);
 	}
 </style>

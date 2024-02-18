@@ -23,24 +23,24 @@
 	];
 </script>
 
-<div class="interestsContainer">
+<div class="interests-container">
 	<h1>My Interests</h1>
-	<div class="interestsCardsContainer">
-		<div class="interestsCard">
+	<div class="interests-cards-container">
+		<div class="interests-card">
 			<InterestsCard
 				cardTitle="Software Engineering"
 				cardBulletPoints={softwareEngineeringBulletPoints}
 				cardSvgPath="/cardIcons/software.svg"
 			/>
 		</div>
-		<div class="interestsCard">
+		<div class="interests-card">
 			<InterestsCard
 				cardTitle="Hardware Engineering"
 				cardBulletPoints={hardwareEngineeringBulletPoints}
 				cardSvgPath="/cardIcons/hardware.svg"
 			/>
 		</div>
-		<div class="interestsCard">
+		<div class="interests-card">
 			<InterestsCard
 				cardTitle="Cloud Infrastructure"
 				cardBulletPoints={cloudInfraBulletPoints}
@@ -51,24 +51,24 @@
 </div>
 
 <style>
-	.interestsContainer {
+	.interests-container {
 		text-align: center;
 		min-height: 60vh;
 	}
 
-	.interestsContainer h1 {
+	.interests-container h1 {
 		color: var(--text-primary-colour);
-		font-size: 4rem;
+		font-size: var(--heading-font-size);
 	}
 
-	.interestsCardsContainer {
+	.interests-cards-container {
 		margin-top: 2.5vh;
 		display: flex;
 		justify-content: space-around;
 		width: 100%;
 	}
 
-	.interestsCard {
+	.interests-card {
 		min-width: 400px;
 		min-height: 400px;
 	}

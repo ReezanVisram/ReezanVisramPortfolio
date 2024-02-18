@@ -4,9 +4,9 @@
 	export let cardSvgPath = '/cardIcons/software.svg';
 </script>
 
-<div class="interestsCardContainer">
+<div class="interests-card-container">
 	<h3>{cardTitle}</h3>
-	<ul class="bulletPointsContainer">
+	<ul class="bullet-points-container">
 		{#each cardBulletPoints as bulletPoint}
 			<li>{bulletPoint}</li>
 		{/each}
@@ -15,7 +15,7 @@
 </div>
 
 <style>
-	.interestsCardContainer {
+	.interests-card-container {
 		position: relative;
 		border: 2px solid #000000;
 		border-radius: 10px;
@@ -23,22 +23,22 @@
 		height: 100%;
 	}
 
-	.interestsCardContainer h3 {
-		font-size: 3rem;
+	.interests-card-container h3 {
+		font-size: var(--subheading-font-size);
 		padding-left: 1rem;
 		padding-right: 1rem;
 		padding-top: 0.5rem;
 	}
 
-	.bulletPointsContainer {
+	.bullet-points-container {
 		text-align: left;
-		font-size: 1.5rem;
+		font-size: var(--body-font-size);
 		list-style-position: inside;
 		padding-top: 2vh;
 		margin-left: 2vw;
 	}
 
-	.interestsCardContainer img {
+	.interests-card-container img {
 		position: absolute;
 		bottom: 0;
 		left: 0;

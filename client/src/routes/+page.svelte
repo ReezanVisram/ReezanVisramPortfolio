@@ -19,6 +19,9 @@
 		--text-primary-colour: #0065ff;
 		--text-secondary-colour: #000000;
 		--button-text-colour: #ffffff;
+		--heading-font-size: 4rem;
+		--subheading-font-size: 2.5rem;
+		--body-font-size: 1.5rem;
 	}
 
 	:global(*) {

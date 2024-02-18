@@ -20,13 +20,13 @@
 	}
 
 	.header-logo {
-		font-size: 2em;
+		font-size: 2rem;
 		color: var(--text-primary-colour);
 		margin-right: 25%;
 	}
 
 	.header-link {
-		font-size: 1.5em;
+		font-size: 1.5rem;
 		color: var(--text-primary-colour);
 	}
 
@@ -41,10 +41,10 @@
 		border-radius: 10px;
 		outline: none;
 		border: none;
-		font-size: 1.5em;
+		font-size: 1.5rem;
 		color: var(--button-text-colour);
 		background-color: var(--text-primary-colour);
-		padding: 0.5em 2.5em;
+		padding: 0.5rem 2.5rem;
 		text-align: center;
 	}
 
