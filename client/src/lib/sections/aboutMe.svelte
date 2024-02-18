@@ -14,10 +14,10 @@
 
 <style>
 	.aboutMeContainer {
-		height: 60vh;
+		min-height: 100vh;
 		display: flex;
 		align-items: center;
-		justify-content: space-around;
+		justify-content: space-between;
 	}
 
 	.introTextContainer {

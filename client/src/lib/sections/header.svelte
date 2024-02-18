@@ -33,7 +33,7 @@
 	.header-links-container {
 		display: flex;
 		flex-grow: 1;
-		justify-content: space-around;
+		justify-content: space-between;
 		align-items: center;
 	}
 

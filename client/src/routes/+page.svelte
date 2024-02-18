@@ -1,10 +1,12 @@
 <script>
-	import AboutMe from '$lib/aboutMe.svelte';
-	import Header from '$lib/header.svelte';
+	import AboutMe from '$lib/sections/aboutMe.svelte';
+	import Header from '$lib/sections/header.svelte';
+	import Interests from '$lib/sections/interests.svelte';
 </script>
 
 <Header />
 <AboutMe />
+<Interests />
 
 <style>
 	@font-face {
