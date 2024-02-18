@@ -64,7 +64,7 @@
 	.interests-cards-container {
 		margin-top: 2.5vh;
 		display: flex;
-		justify-content: space-around;
+		justify-content: space-between;
 		width: 100%;
 	}
 

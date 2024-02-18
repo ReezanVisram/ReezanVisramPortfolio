@@ -35,7 +35,7 @@
 		font-size: var(--body-font-size);
 		list-style-position: inside;
 		padding-top: 2vh;
-		margin-left: 2vw;
+		margin-left: 0.5vw;
 	}
 
 	.interests-card-container img {

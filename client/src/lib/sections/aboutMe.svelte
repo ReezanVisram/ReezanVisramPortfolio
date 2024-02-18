@@ -8,7 +8,7 @@
 		</p>
 	</div>
 	<div class="headshot-container">
-		<enhanced:img src="/static/me.webp" alt="A picture of me" />
+		<enhanced:img class="headshot" src="/static/me.webp" alt="A picture of me" />
 	</div>
 </div>
 
@@ -29,7 +29,7 @@
 		text-align: right;
 	}
 
-	.headshot-container img {
+	.headshot {
 		width: 400px;
 		height: auto;
 	}
