@@ -12,7 +12,7 @@
 
 <style>
 	@font-face {
-		src: url('./Outfit.ttf');
+		src: url('../Outfit.ttf');
 		font-family: Outfit;
 	}
 
