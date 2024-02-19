@@ -32,6 +32,7 @@
 	.headshot {
 		width: 400px;
 		height: auto;
+		border-radius: 10px;
 	}
 
 	h1 {
@@ -41,9 +42,11 @@
 
 	h2 {
 		font-size: var(--subheading-font-size);
+		color: var(--text-secondary-colour);
 	}
 
 	p {
 		font-size: var(--body-font-size);
+		color: var(--text-secondary-colour);
 	}
 </style>
