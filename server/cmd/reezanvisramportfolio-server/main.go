@@ -17,6 +17,7 @@ import (
 
 	"cloud.google.com/go/storage"
 	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/cors"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -70,6 +71,7 @@ func main() {
 	experienceService := experience.NewExperienceService(logger, experienceRepo)
 	experienceRouter := experience.NewExperienceRouter(logger, experienceService)
 
+	r.Use(cors.Handler(cors.Options{}))
 	r.Use(custom_middleware.CorrelationIdMiddleware)
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
