@@ -23,8 +23,7 @@
 <style>
 	.experience-container {
 		text-align: center;
-		min-height: 45vh;
-		margin-bottom: 15vh;
+		min-height: 40vh;
 		display: flex;
 		flex-direction: column;
 	}

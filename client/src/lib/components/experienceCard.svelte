@@ -71,6 +71,10 @@
 		cursor: pointer;
 	}
 
+	.experience-card:hover {
+		border: 3px solid var(--text-primary-colour);
+	}
+
 	.experience-information {
 		color: var(--text-secondary-colour);
 		font-size: var(--body-font-size);

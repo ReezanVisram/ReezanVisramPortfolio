@@ -4,6 +4,7 @@
 	import Experience from '$lib/sections/experience.svelte';
 	import Header from '$lib/sections/header.svelte';
 	import Interests from '$lib/sections/interests.svelte';
+	import Projects from '$lib/sections/projects.svelte';
 
 	import type { PageData } from './$types';
 
@@ -15,6 +16,7 @@
 <Interests />
 <Education />
 <Experience experience={data.experience} />
+<Projects projects={data.projects} />
 
 <style>
 	@font-face {
