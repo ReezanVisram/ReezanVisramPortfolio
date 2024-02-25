@@ -13,6 +13,8 @@
 				jobTitle={exp.job_title}
 				company={exp.name}
 				startAndEndDate={exp.start_and_end_date}
+				bulletPoints={exp.bullet_points}
+				tools={exp.tools}
 			/>
 		{/each}
 	</div>
@@ -21,7 +23,8 @@
 <style>
 	.experience-container {
 		text-align: center;
-		min-height: 100vh;
+		min-height: 45vh;
+		margin-bottom: 15vh;
 		display: flex;
 		flex-direction: column;
 	}
@@ -36,5 +39,6 @@
 		flex-direction: column;
 		justify-content: space-between;
 		gap: 1vh;
+		margin-top: 2vh;
 	}
 </style>
