@@ -44,8 +44,21 @@
 		</div>
 	</div>
 
-	<div class="software-projects-cards-container">
+	<div class="software-projects-cards-container" class:visible={isSoftwareActive}>
 		{#each softwareProjects as project, index}
+			<ProjectCard
+				name={project.name}
+				description={project.description}
+				repoLink={project.repo_link}
+				releaseLink={project.release_link}
+				imageLink={project.image_link}
+				tools={project.technologies}
+				leftImage={index % 2 === 0}
+			/>
+		{/each}
+	</div>
+	<div class="hardware-projects-cards-container" class:visible={!isSoftwareActive}>
+		{#each hardwareProjects as project, index}
 			<ProjectCard
 				name={project.name}
 				description={project.description}
@@ -116,5 +129,17 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1vh;
+		opacity: 0;
+	}
+
+	.visible {
+		opacity: 1;
+	}
+
+	.hardware-projects-cards-container {
+		display: flex;
+		flex-direction: column;
+		gap: 1vh;
+		opacity: 0;
 	}
 </style>

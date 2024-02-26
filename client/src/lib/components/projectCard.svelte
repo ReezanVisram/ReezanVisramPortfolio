@@ -14,12 +14,14 @@
 	<div class="content-container" class:left-margin={!leftImage}>
 		<div class="project-name-container">
 			<h3>{name}</h3>
-			<a href={repoLink} target="_blank">
-				<img src="/cardIcons/github.svg" width={75} alt="Github icon" />
-			</a>
-			<a href={releaseLink} target="_blank">
-				<img src="/cardIcons/externalLink.svg" width={75} alt="External link icon" />
-			</a>
+			<div class="icon-links-container">
+				<a href={repoLink} target="_blank">
+					<img src="/cardIcons/github.svg" width={50} alt="Github icon" />
+				</a>
+				<a href={releaseLink} target="_blank">
+					<img src="/cardIcons/externalLink.svg" width={50} alt="External link icon" />
+				</a>
+			</div>
 		</div>
 		<p>{description}</p>
 		<div class="tools-container">
@@ -29,7 +31,9 @@
 		</div>
 	</div>
 
-	<img src={imageLink} />
+	<div class="project-screenshot-container">
+		<img src={imageLink} alt={`Screenshot of ${name}`} class="project-screenshot" />
+	</div>
 </div>
 
 <style>
@@ -49,6 +53,10 @@
 		margin-bottom: 1vh;
 		margin-top: 1vh;
 		text-align: left;
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
 	}
 
 	.content-container h3 {
@@ -70,10 +78,25 @@
 	.tools-container {
 		display: flex;
 		flex-direction: row;
-		justify-content: space-around;
+		justify-content: flex-start;
 		align-items: center;
 		margin-top: 1vh;
 		flex-wrap: wrap;
 		gap: 1vh;
+	}
+
+	.project-screenshot-container {
+		width: 40%;
+		padding: 2em;
+	}
+
+	.project-screenshot {
+		border-radius: 10px;
+		width: 100%;
+		height: auto;
+	}
+
+	.icon-links-container {
+		margin-left: 1vw;
 	}
 </style>
