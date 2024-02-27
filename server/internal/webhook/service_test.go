@@ -9,6 +9,7 @@ import (
 	domain "reezanvisramportfolio/domain/project"
 	mock_database "reezanvisramportfolio/internal/mocks/database"
 	"reezanvisramportfolio/internal/webhook"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -51,7 +52,7 @@ func TestHandleStarWebhookCreated(t *testing.T) {
 		Description:  repoDescription,
 		RepoLink:     repoLink,
 		ReleaseLink:  repoReleaseLink,
-		ImageLink:    fmt.Sprintf("%s/blob/%s/featured_screenshot.png", repoLink, repoDefaultBranch),
+		ImageLink:    fmt.Sprintf("%s/%s/featured_screenshot.png", strings.Replace(repoLink, "github.com", "raw.githubusercontent.com", 1), repoDefaultBranch),
 		IsHardware:   false,
 		Technologies: []string{"C++", "OpenGL"},
 	}
