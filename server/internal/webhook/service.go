@@ -65,7 +65,7 @@ func (ws *webhookService) HandleStarWebhookCreated(
 		Description: repoDescription,
 		RepoLink:    repoLink,
 		ReleaseLink: repoReleaseLink,
-		ImageLink:   fmt.Sprintf("%s/blob/%s/featured_screenshot.png", repoLink, repoDefaultBranch),
+		ImageLink:   fmt.Sprintf("%s/%s/featured_screenshot.png", strings.Replace(repoLink, "github.com", "raw.githubusercontent.com", 1), repoDefaultBranch),
 		IsHardware:  false,
 	}
 
