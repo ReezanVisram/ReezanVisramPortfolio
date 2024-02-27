@@ -1,5 +1,6 @@
 <script lang="ts">
 	import AboutMe from '$lib/sections/aboutMe.svelte';
+	import ContactMe from '$lib/sections/contactMe.svelte';
 	import Education from '$lib/sections/education.svelte';
 	import Experience from '$lib/sections/experience.svelte';
 	import Header from '$lib/sections/header.svelte';
@@ -11,12 +12,21 @@
 	export let data: PageData;
 </script>
 
+<svelte:head>
+	<script
+		async
+		src="https://www.google.com/recaptcha/api.js?render=6LcXPIEpAAAAAG9e43MfkzzIHoxA6C0PehTNnI-w"
+	>
+	</script>
+</svelte:head>
+
 <Header />
 <AboutMe />
 <Interests />
 <Education />
 <Experience experience={data.experience} />
 <Projects projects={data.projects} />
+<ContactMe />
 
 <style>
 	@font-face {
