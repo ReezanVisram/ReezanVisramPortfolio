@@ -8,10 +8,12 @@ import (
 	"log/slog"
 	"net/http"
 	"os"
+	"reezanvisramportfolio/internal/adapters"
 	"reezanvisramportfolio/internal/custom_logging"
 	"reezanvisramportfolio/internal/custom_middleware"
 	"reezanvisramportfolio/internal/database"
 	"reezanvisramportfolio/internal/experience"
+	"reezanvisramportfolio/internal/message"
 	"reezanvisramportfolio/internal/project"
 	"reezanvisramportfolio/internal/webhook"
 
@@ -36,6 +38,7 @@ func main() {
 	MONGODB_CONNECTION_OPTIONS := os.Getenv("MONGODB_CONNECTION_OPTIONS")
 	CLOUDSTORAGE_BUCKET_NAME := os.Getenv("CLOUDSTORAGE_BUCKET_NAME")
 	CLOUDSTORAGE_FILENAME_TO_FETCH := os.Getenv("CLOUDSTORAGE_FILENAME_TO_FETCH")
+	RECAPTCHA_SECRET := os.Getenv("RECAPTCHA_SECRET")
 
 	r := chi.NewRouter()
 
@@ -59,8 +62,11 @@ func main() {
 
 	projectCollection := client.Database("reezanvisramportfolio").Collection("projects")
 	experienceCollection := client.Database("reezanvisramportfolio").Collection("experience")
+	messageCollection := client.Database("reezanvisramportfolio").Collection("messages")
+
 	projectRepo := database.NewProjectRepository(projectCollection)
 	experienceRepo := database.NewExperienceRepository(experienceCollection)
+	messageRepo := database.NewMessageRepository(messageCollection)
 
 	webhookService := webhook.NewWebhookService(logger, projectRepo)
 	webhookRouter := webhook.NewWebhookRouter(logger, WEBHOOK_SECRET, webhookService)
@@ -70,6 +76,10 @@ func main() {
 
 	experienceService := experience.NewExperienceService(logger, experienceRepo)
 	experienceRouter := experience.NewExperienceRouter(logger, experienceService)
+
+	recaptchaClient := adapters.NewRecaptchaClient(RECAPTCHA_SECRET)
+	messageService := message.NewMessageService(logger, messageRepo, recaptchaClient)
+	messageRouter := message.NewMessageRouter(logger, messageService)
 
 	r.Use(cors.Handler(cors.Options{}))
 	r.Use(custom_middleware.CorrelationIdMiddleware)
@@ -123,6 +133,10 @@ func main() {
 
 		r.Route("/experience", func(r chi.Router) {
 			r.Get("/", experienceRouter.GetExperience)
+		})
+
+		r.Route("/message", func(r chi.Router) {
+			r.Post("/", messageRouter.PostMessageHandler)
 		})
 	})
 
