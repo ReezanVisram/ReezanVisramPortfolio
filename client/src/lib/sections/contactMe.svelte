@@ -1,10 +1,24 @@
 <script lang="ts">
-	const handleSubmit = async () => {
+	const handleSubmit = async (e: SubmitEvent) => {
 		const token = await window.grecaptcha.execute('6LcXPIEpAAAAAG9e43MfkzzIHoxA6C0PehTNnI-w', {
 			action: 'submit'
 		});
 
-		console.log(token);
+		const formData = new FormData(e.target as HTMLFormElement);
+
+		const data: any = {};
+		formData.forEach((value, key) => (data[key] = value));
+		data.token = token;
+
+		const body = JSON.stringify(data);
+
+		const res = await fetch('http://localhost:3000/message', {
+			method: 'POST',
+			body: body
+		});
+
+		console.log('Sent request!');
+		console.log(res);
 	};
 </script>
 
