@@ -1,4 +1,9 @@
 <script lang="ts">
+	import Checkmark from '$lib/components/checkmark.svelte';
+	import Modal from '$lib/components/modal.svelte';
+
+	let showModal = false;
+
 	const handleSubmit = async (e: SubmitEvent) => {
 		const token = await window.grecaptcha.execute('6LcXPIEpAAAAAG9e43MfkzzIHoxA6C0PehTNnI-w', {
 			action: 'submit'
@@ -17,10 +22,21 @@
 			body: body
 		});
 
-		console.log('Sent request!');
-		console.log(res);
+		if (res.status === 200) {
+			showModal = true;
+		}
 	};
 </script>
+
+<Modal {showModal}>
+	<h3 class="modal-heading" slot="dialog-heading">Message Sent Successfully!</h3>
+
+	<p class="modal-body" slot="dialog-content">
+		Thank you for your message. I'll try my best to respond within the next couple of days!
+	</p>
+
+	<Checkmark slot="dialog-image" />
+</Modal>
 
 <div class="contact-me-container">
 	<h1>Contact Me</h1>
@@ -96,5 +112,13 @@
 	.submit-button:hover {
 		cursor: pointer;
 		background-color: #0045ad;
+	}
+
+	.modal-heading {
+		font-size: var(--subheading-font-size);
+	}
+
+	.modal-body {
+		font-size: var(--body-font-size);
 	}
 </style>
