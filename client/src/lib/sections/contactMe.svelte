@@ -1,8 +1,14 @@
 <script lang="ts">
 	import Checkmark from '$lib/components/checkmark.svelte';
 	import Modal from '$lib/components/modal.svelte';
+	import AnimatedX from '$lib/components/animatedX.svelte';
 
 	let showModal = false;
+
+	let modalHeading = 'Message Sent Successfully!';
+	let modalBody =
+		"Thank you for your message. I'll try my best to respond within the next couple of days!";
+	let isCheckmark: boolean = false;
 
 	const handleSubmit = async (e: SubmitEvent) => {
 		const token = await window.grecaptcha.execute('6LcXPIEpAAAAAG9e43MfkzzIHoxA6C0PehTNnI-w', {
@@ -22,20 +28,31 @@
 			body: body
 		});
 
-		if (res.status === 200) {
+		if (res.status === 200 || res.status === 204) {
+			modalHeading = 'Message Sent Successfully!';
+			modalBody =
+				"Thank you for your message. I'll try my best to respond within the next couple of days!";
+			isCheckmark = true;
 			showModal = true;
+			const target = e.target as HTMLFormElement;
+			target.reset();
+		} else {
+			modalHeading = 'Unable to Send Message';
+			modalBody = 'Sorry, your message was not successfully sent. Please try again later.';
+			isCheckmark = false;
+			showModal = true;
+			const target = e.target as HTMLFormElement;
+			target.reset();
 		}
 	};
 </script>
 
-<Modal {showModal}>
-	<h3 class="modal-heading" slot="dialog-heading">Message Sent Successfully!</h3>
+<Modal bind:showModal bind:isCheckmark>
+	<h3 class="modal-heading" slot="dialog-heading">{modalHeading}</h3>
 
 	<p class="modal-body" slot="dialog-content">
-		Thank you for your message. I'll try my best to respond within the next couple of days!
+		{modalBody}
 	</p>
-
-	<Checkmark slot="dialog-image" />
 </Modal>
 
 <div class="contact-me-container">
@@ -43,10 +60,33 @@
 	<h3>Want to get in touch? Send me a message!</h3>
 
 	<form class="contact-form-container" on:submit|preventDefault={handleSubmit}>
-		<input placeholder="Name" type="text" name="name" />
-		<input placeholder="Email" type="email" name="email" />
-		<input placeholder="Subject" type="text" name="subject" />
-		<textarea placeholder="Message" rows="20" cols="30" name="message" />
+		<div class="input-container">
+			<input type="text" name="name" required autocomplete="off" class="input" placeholder="" />
+			<label class="placeholder-text" for="name" id="placeholder-name">Name</label>
+		</div>
+
+		<div class="input-container">
+			<input type="text" name="email" required autocomplete="off" class="input" placeholder="" />
+			<label class="placeholder-text" for="email" id="placeholder-email">Email</label>
+		</div>
+
+		<div class="input-container">
+			<input type="text" name="subject" required autocomplete="off" class="input" placeholder="" />
+			<label class="placeholder-text" for="subject" id="placeholder-email">Subject</label>
+		</div>
+		<div class="input-container">
+			<textarea
+				rows="20"
+				cols="30"
+				name="message"
+				required
+				autocomplete="off"
+				class="input"
+				placeholder=""
+			/>
+			<label class="placeholder-text" for="message" id="placeholder-email">Message</label>
+		</div>
+
 		<button class="g-recaptcha submit-button" type="submit">Submit</button>
 		<small
 			>This site is protected by reCAPTCHA and the Google
@@ -84,19 +124,54 @@
 		gap: 1vh;
 	}
 
-	.contact-form-container input {
-		font-size: var(--body-font-size);
-		border-radius: 10px;
-		border: 3px solid var(--text-secondary-colour);
-		padding: 0.25em;
+	.input-container {
+		position: relative;
+		margin-bottom: 0.25vh;
 	}
 
-	.contact-form-container textarea {
-		resize: none;
+	.input {
+		width: 100%;
+		height: 100%;
 		font-size: var(--body-font-size);
-		border-radius: 10px;
 		border: 3px solid var(--text-secondary-colour);
-		padding: 0.25em;
+		border-radius: 10px;
+		outline: none;
+		background: none;
+		z-index: 1;
+		padding: 1rem;
+		box-sizing: border-box;
+		width: 100%;
+	}
+
+	.placeholder-text {
+		position: absolute;
+		left: 1rem;
+		top: 1rem;
+		padding: 0 0.25rem;
+		background-color: var(--background-colour);
+		color: var(--text-secondary-colour);
+		font-size: var(--body-font-size);
+		transition: 0.3s;
+		pointer-events: none;
+	}
+
+	.input:focus + .placeholder-text {
+		top: -0.7rem;
+		left: 0.8rem;
+		color: var(--text-primary-colour);
+		font-size: calc(var(--body-font-size) - 0.3rem);
+		z-index: 10;
+	}
+
+	.input:not(:placeholder-shown).input:not(:focus) + .placeholder-text {
+		top: -0.7rem;
+		left: 0.8rem;
+		font-size: calc(var(--body-font-size) - 0.3rem);
+		z-index: 10;
+	}
+
+	.input:focus {
+		border: 3px solid var(--text-primary-colour);
 	}
 
 	.submit-button {
@@ -106,7 +181,7 @@
 		color: var(--text-tertiary-colour);
 		border: none;
 		font-size: var(--body-font-size);
-		padding: 0.5em;
+		padding: 1rem;
 	}
 
 	.submit-button:hover {

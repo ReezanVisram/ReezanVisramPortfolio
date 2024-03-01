@@ -1,5 +1,9 @@
 <script lang="ts">
-	export let showModal: boolean = false;
+	import AnimatedX from './animatedX.svelte';
+	import Checkmark from './checkmark.svelte';
+
+	export let showModal: boolean;
+	export let isCheckmark: boolean;
 
 	let dialog: HTMLDialogElement;
 
@@ -24,7 +28,13 @@
 
 		<slot name="dialog-content" />
 
-		<slot name="dialog-image" />
+		<div class="modal-image-container">
+			{#if isCheckmark}
+				<Checkmark />
+			{:else}
+				<AnimatedX />
+			{/if}
+		</div>
 	</div>
 </dialog>
 
@@ -40,6 +50,33 @@
 
 	.dialog::backdrop {
 		background: rgba(0, 0, 0, 0.3);
+	}
+
+	.dialog[open] {
+		animation: zoom-in cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s;
+	}
+
+	@keyframes zoom-in {
+		from {
+			transform: scale(0.3);
+		}
+		to {
+			transform: scale(1);
+		}
+	}
+
+	.dialog[open]::backdrop {
+		animation: fade ease-in-out 0.5s;
+	}
+
+	@keyframes fade {
+		from {
+			opacity: 0;
+		}
+
+		to {
+			opacity: 1;
+		}
 	}
 
 	.dialog-container {
@@ -59,5 +96,12 @@
 
 	.dialog-close-button:hover {
 		cursor: pointer;
+	}
+
+	.modal-image-container {
+		width: 100%;
+		display: flex;
+		justify-content: space-around;
+		margin: 2rem 0;
 	}
 </style>
