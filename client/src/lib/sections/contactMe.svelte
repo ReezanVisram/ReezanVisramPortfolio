@@ -2,6 +2,7 @@
 	import Checkmark from '$lib/components/checkmark.svelte';
 	import Modal from '$lib/components/modal.svelte';
 	import AnimatedX from '$lib/components/animatedX.svelte';
+	import { PUBLIC_BASE_URL } from '$env/static/public';
 
 	let showModal = false;
 
@@ -23,7 +24,7 @@
 
 		const body = JSON.stringify(data);
 
-		const res = await fetch('http://localhost:3000/message', {
+		const res = await fetch(`https://${PUBLIC_BASE_URL}/message`, {
 			method: 'POST',
 			body: body
 		});

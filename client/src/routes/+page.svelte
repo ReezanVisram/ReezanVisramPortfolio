@@ -3,6 +3,7 @@
 	import ContactMe from '$lib/sections/contactMe.svelte';
 	import Education from '$lib/sections/education.svelte';
 	import Experience from '$lib/sections/experience.svelte';
+	import Footer from '$lib/sections/footer.svelte';
 	import Header from '$lib/sections/header.svelte';
 	import Interests from '$lib/sections/interests.svelte';
 	import Projects from '$lib/sections/projects.svelte';
@@ -27,6 +28,7 @@
 <Experience experience={data.experience} />
 <Projects projects={data.projects} />
 <ContactMe />
+<Footer />
 
 <style>
 	@font-face {
