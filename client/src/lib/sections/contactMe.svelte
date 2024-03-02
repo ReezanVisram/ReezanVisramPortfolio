@@ -24,7 +24,7 @@
 
 		const body = JSON.stringify(data);
 
-		const res = await fetch(`https://${PUBLIC_BASE_URL}/message`, {
+		const res = await fetch(`https://api.${PUBLIC_BASE_URL}/message`, {
 			method: 'POST',
 			body: body
 		});
