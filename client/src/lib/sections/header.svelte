@@ -6,7 +6,7 @@
 		<p class="header-link">Experience</p>
 		<p class="header-link">Projects</p>
 		<p class="header-link">Contact Me</p>
-		<p class="header-button">Resume</p>
+		<a class="header-button" href="/resume">Resume</a>
 	</div>
 </nav>
 
