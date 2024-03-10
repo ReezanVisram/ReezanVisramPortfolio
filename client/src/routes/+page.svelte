@@ -3,8 +3,8 @@
 	import ContactMe from '$lib/sections/contactMe.svelte';
 	import Education from '$lib/sections/education.svelte';
 	import Experience from '$lib/sections/experience.svelte';
-	import Footer from '$lib/sections/footer.svelte';
-	import Header from '$lib/sections/header.svelte';
+	import Footer from '$lib/components/footer.svelte';
+	import Header from '$lib/components/header.svelte';
 	import Interests from '$lib/sections/interests.svelte';
 	import Projects from '$lib/sections/projects.svelte';
 
@@ -38,7 +38,7 @@
 
 	:global(:root) {
 		--background-colour: #ffffff;
-		--text-primary-colour: #0065ff;
+		--text-primary-colour: #0848a7;
 		--text-secondary-colour: #000000;
 		--text-tertiary-colour: #ffffff;
 		--button-text-colour: #ffffff;
@@ -56,5 +56,6 @@
 	:global(body) {
 		margin-left: 12.5vw;
 		margin-right: 12.5vw;
+		background-color: var(--background-colour);
 	}
 </style>
