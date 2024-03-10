@@ -118,6 +118,7 @@ func main() {
 		}
 
 		w.Header().Add("Content-Type", "application/pdf")
+		w.Header().Add("Content-Disposition", "attachment; filename=Reezan_Visram_Resume.pdf")
 		w.Write(body)
 	})
 
