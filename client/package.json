@@ -32,6 +32,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@sveltejs/adapter-node": "^4.0.1"
+		"@sveltejs/adapter-node": "^4.0.1",
+		"pdfjs-dist": "^3.11.174"
 	}
 }

@@ -45,6 +45,8 @@
 		--heading-font-size: 4rem;
 		--subheading-font-size: 2.5rem;
 		--body-font-size: 1.5rem;
+		--svg-filter: invert(18%) sepia(39%) saturate(5861%) hue-rotate(211deg) brightness(91%)
+			contrast(94%);
 	}
 
 	:global(*) {
@@ -93,7 +95,7 @@
 	}
 
 	.button-icon {
-		filter: invert(18%) sepia(39%) saturate(5861%) hue-rotate(211deg) brightness(91%) contrast(94%);
+		filter: var(--svg-filter);
 	}
 
 	.action-button:hover .button-icon {

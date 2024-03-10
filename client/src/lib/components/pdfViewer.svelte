@@ -5,6 +5,7 @@
 	import { onMount } from 'svelte';
 	import { PUBLIC_BASE_URL } from '$env/static/public';
 
+	console.log(pdfjs.version);
 	GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 	const defaultUrl = `https://api.${PUBLIC_BASE_URL}/resume`;

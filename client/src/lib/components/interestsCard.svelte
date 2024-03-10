@@ -47,5 +47,6 @@
 		margin: 10px;
 		color: var(--text-primary-colour);
 		color: var(--text-secondary-colour);
+		filter: var(--svg-filter);
 	}
 </style>
