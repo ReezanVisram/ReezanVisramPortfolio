@@ -22,12 +22,27 @@
 </svelte:head>
 
 <Header />
-<AboutMe />
-<Interests />
-<Education />
-<Experience experience={data.experience} />
-<Projects projects={data.projects} />
-<ContactMe />
+
+<section id="about-me-section">
+	<AboutMe />
+</section>
+
+<section id="interests-section">
+	<Interests />
+</section>
+<section id="education-section">
+	<Education />
+</section>
+<section id="experience-section">
+	<Experience experience={data.experience} />
+</section>
+<section id="projects-section">
+	<Projects projects={data.projects} />
+</section>
+<section id="contact-me-section">
+	<ContactMe />
+</section>
+
 <Footer />
 
 <style>

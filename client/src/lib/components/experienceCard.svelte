@@ -13,20 +13,23 @@
 	};
 </script>
 
-<div class="experience-card" class:active={isActive}>
-	<button class="experience-card-button" class:button-active={isActive} on:click={handleOnClick}>
+<div class="experience-card-wrapper" class:experience-card-wrapper-active={isActive}>
+	<button
+		class="experience-card-button"
+		class:experience-card-button-active={isActive}
+		on:click={handleOnClick}
+	>
 		<div class="experience-information">
 			<h3>{`${jobTitle} at ${company}`}</h3>
 			<h3>{startAndEndDate}</h3>
 		</div>
-		{#if !isActive}
-			<img src="/cardIcons/plus.svg" width={75} alt="Plus Icon" />
-		{:else}
-			<img src="/cardIcons/minus.svg" width={75} alt="Minus Icon" class="minus" />
-		{/if}
+		<div class="plus-minus-container">
+			<span></span>
+			<span></span>
+		</div>
 	</button>
-	{#if isActive}
-		<div class="bullet-points-container">
+	<div class="bullet-points-container" class:bullet-points-container-active={isActive}>
+		<div class="bullet-points-content">
 			<ul>
 				{#each bulletPoints as bulletPoint}
 					<li>{bulletPoint}</li>
@@ -38,15 +41,21 @@
 				{/each}
 			</div>
 		</div>
-	{/if}
+	</div>
 </div>
 
 <style>
-	.experience-card {
-		width: 100%;
-		background-color: var(--background-colour);
-		border: 3px solid var(--text-secondary-colour);
+	.experience-card-wrapper {
 		border-radius: 10px;
+		border: 3px solid var(--text-secondary-colour);
+	}
+
+	.experience-card-wrapper:hover {
+		border: 3px solid var(--text-primary-colour);
+	}
+
+	.experience-card-wrapper-active {
+		border: 3px solid var(--text-primary-colour);
 	}
 
 	.experience-card-button {
@@ -59,11 +68,7 @@
 		outline: none;
 	}
 
-	.active {
-		border: 3px solid var(--text-primary-colour);
-	}
-
-	.button-active {
+	.experience-card-button-active {
 		border-bottom: 3px solid var(--text-primary-colour);
 	}
 
@@ -71,8 +76,63 @@
 		cursor: pointer;
 	}
 
-	.experience-card:hover {
-		border: 3px solid var(--text-primary-colour);
+	.experience-card-wrapper:hover .plus-minus-container span {
+		background-color: var(--text-primary-colour);
+	}
+
+	.experience-card-wrapper-active .plus-minus-container span {
+		background-color: var(--text-primary-colour);
+	}
+
+	.plus-minus-container {
+		position: absolute;
+		right: 0;
+		width: 100px;
+		height: 100px;
+		top: 0;
+		bottom: 0;
+		margin-top: auto;
+		margin-bottom: auto;
+		margin-right: 10px;
+		transition: transform 0.4s ease-out;
+	}
+
+	.plus-minus-container span {
+		background-color: var(--text-secondary-colour);
+	}
+
+	.plus-minus-container span:first-child {
+		position: absolute;
+		height: 50px;
+		inset: 0;
+		margin-top: auto;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: auto;
+		width: 5px;
+		border-radius: 10px;
+	}
+
+	.plus-minus-container span:last-child {
+		position: absolute;
+		height: 50px;
+		inset: 0;
+		margin-top: auto;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: auto;
+		width: 5px;
+		border-radius: 10px;
+		transform: rotate(90deg);
+		transition: height 0.4s ease-out;
+	}
+
+	.experience-card-wrapper-active .plus-minus-container {
+		transform: rotate(90deg);
+	}
+
+	.experience-card-wrapper-active .plus-minus-container span:last-child {
+		height: 0px;
 	}
 
 	.experience-information {
@@ -85,26 +145,22 @@
 		font-weight: 400;
 	}
 
-	.experience-card img {
-		position: absolute;
-		right: 0;
-		top: 0;
-		bottom: 0;
-		margin-top: auto;
-		margin-bottom: auto;
-		margin-right: 10px;
-	}
-
 	.bullet-points-container {
 		text-align: left;
-		height: 100%;
 		list-style-position: inside;
 		font-size: var(--body-font-size);
-		padding: 1vw;
+		overflow: hidden;
+		transition: max-height 0.4s ease-out;
+		border: none;
+		max-height: 0;
 	}
 
-	.minus {
-		color: var(--text-primary-colour);
+	.bullet-points-container-active {
+		max-height: 100vh;
+	}
+
+	.bullet-points-content {
+		padding: 1vh 1vw;
 	}
 
 	.tools-container {

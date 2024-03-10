@@ -5,7 +5,6 @@
 	import { onMount } from 'svelte';
 	import { PUBLIC_BASE_URL } from '$env/static/public';
 
-	console.log(pdfjs.version);
 	GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 	const defaultUrl = `https://api.${PUBLIC_BASE_URL}/resume`;
@@ -19,7 +18,6 @@
 
 	onMount(async () => {
 		const container = document.getElementById('viewerContainer') as HTMLDivElement;
-		console.log(container);
 
 		const eventBus = new pdfjsViewer.EventBus();
 
