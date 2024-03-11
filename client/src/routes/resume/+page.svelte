@@ -82,16 +82,18 @@
 	.action-button {
 		background: var(--background-colour);
 		outline: none;
-		border: 3px solid var(--text-primary-colour);
+		/* border: 3px solid var(--text-primary-colour); */
+		border: none;
 		padding: 2px;
 		border-radius: 10px;
 		transition: transform 0.1s linear;
+		box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 	}
 
 	.action-button:hover {
 		cursor: pointer;
 		transform: scale(105%);
-		border: 3px solid black;
+		/* border: 3px solid black; */
 	}
 
 	.button-icon {

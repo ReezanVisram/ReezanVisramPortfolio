@@ -68,10 +68,6 @@
 		outline: none;
 	}
 
-	.experience-card-button-active {
-		border-bottom: 3px solid var(--text-primary-colour);
-	}
-
 	.experience-card-button:hover {
 		cursor: pointer;
 	}

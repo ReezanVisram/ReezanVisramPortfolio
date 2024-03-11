@@ -1,26 +1,64 @@
 <script lang="ts">
-	export let cardTitle = 'Default Card Title';
-	export let cardBulletPoints: string[] = [];
-	export let cardSvgPath = '/cardIcons/software.svg';
+	export let frontCardTitle = 'Default Card Title';
+	export let frontCardBulletPoints: string[] = [];
+	export let frontCardSvgPath = '/cardIcons/software.svg';
+
+	export let backCardTitle = 'Default Card Title';
+	export let backCardText: string = '';
+	export let backCardSvgPath = '/cardIcons/software.svg';
 </script>
 
 <div class="interests-card-container">
-	<h3>{cardTitle}</h3>
-	<ul class="bullet-points-container">
-		{#each cardBulletPoints as bulletPoint}
-			<li>{bulletPoint}</li>
-		{/each}
-	</ul>
-	<img src={cardSvgPath} alt="Card Type Icon" width={150} />
+	<div class="interests-card-inner">
+		<div class="interests-card-front">
+			<h3>{frontCardTitle}</h3>
+			<ul class="bullet-points-container">
+				{#each frontCardBulletPoints as bulletPoint}
+					<li>{bulletPoint}</li>
+				{/each}
+			</ul>
+			<img src={frontCardSvgPath} alt="Card Type Icon" width={65} />
+		</div>
+		<div class="interests-card-back">
+			<h3>{backCardTitle}</h3>
+			<p>{backCardText}</p>
+			<img src={backCardSvgPath} alt="Card Type Icon" width={65} />
+		</div>
+	</div>
 </div>
 
 <style>
 	.interests-card-container {
-		position: relative;
-		border: 2px solid var(--text-secondary-colour);
-		border-radius: 10px;
+		background-color: transparent;
 		width: 100%;
 		height: 100%;
+		perspective: 1000px;
+	}
+
+	.interests-card-inner {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		transition: transform 0.6s;
+		transform-style: preserve-3d;
+		box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+	}
+
+	.interests-card-container:hover .interests-card-inner {
+		transform: rotateY(180deg);
+	}
+
+	.interests-card-front,
+	.interests-card-back {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		-webkit-backface-visibility: hidden;
+		backface-visibility: hidden;
+	}
+
+	.interests-card-back {
+		transform: rotateY(180deg);
 	}
 
 	.interests-card-container h3 {
@@ -29,6 +67,14 @@
 		padding-left: 1rem;
 		padding-right: 1rem;
 		padding-top: 0.5rem;
+	}
+
+	.interests-card-container p {
+		text-align: left;
+		font-size: var(--body-font-size);
+		color: var(--text-secondary-colour);
+		padding-top: 2vh;
+		margin: 0 0.5vw;
 	}
 
 	.bullet-points-container {

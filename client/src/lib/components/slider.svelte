@@ -64,7 +64,6 @@
 	}
 
 	.active {
-		filter: invert(24%) sepia(58%) saturate(5483%) hue-rotate(213deg) brightness(104%)
-			contrast(103%);
+		filter: var(--svg-filter);
 	}
 </style>

@@ -28,23 +28,32 @@
 	<div class="interests-cards-container">
 		<div class="interests-card">
 			<InterestsCard
-				cardTitle="Software Engineering"
-				cardBulletPoints={softwareEngineeringBulletPoints}
-				cardSvgPath="/cardIcons/software.svg"
+				frontCardTitle="Software Engineering"
+				frontCardBulletPoints={softwareEngineeringBulletPoints}
+				frontCardSvgPath="/cardIcons/software.svg"
+				backCardTitle="Sports"
+				backCardText="I love both watching and playing sports. My favourite sport is hockey, and my favourite team is the Toronto Maple Leafs. Go Leafs Go!"
+				backCardSvgPath="/cardIcons/hockey.svg"
 			/>
 		</div>
 		<div class="interests-card">
 			<InterestsCard
-				cardTitle="Hardware Engineering"
-				cardBulletPoints={hardwareEngineeringBulletPoints}
-				cardSvgPath="/cardIcons/hardware.svg"
+				frontCardTitle="Hardware Engineering"
+				frontCardBulletPoints={hardwareEngineeringBulletPoints}
+				frontCardSvgPath="/cardIcons/hardware.svg"
+				backCardTitle="Video Games"
+				backCardText="I like to relax by playing video games. Some of my favourite games are Hades, Sid Meier's Civilization and Hogwarts: Legacy."
+				backCardSvgPath="/cardIcons/video-games.svg"
 			/>
 		</div>
 		<div class="interests-card">
 			<InterestsCard
-				cardTitle="Cloud Infrastructure"
-				cardBulletPoints={cloudInfraBulletPoints}
-				cardSvgPath="/cardIcons/cloud.svg"
+				frontCardTitle="Cloud Infrastructure"
+				frontCardBulletPoints={cloudInfraBulletPoints}
+				frontCardSvgPath="/cardIcons/cloud.svg"
+				backCardTitle="Music"
+				backCardText="You can often find me with headphones in listening to music. I enjoy basically all genres of music; my playlist is a mix of all kinds of things, from Hip-Hop and Afro to Rock and EDM."
+				backCardSvgPath="/cardIcons/music.svg"
 			/>
 		</div>
 	</div>
