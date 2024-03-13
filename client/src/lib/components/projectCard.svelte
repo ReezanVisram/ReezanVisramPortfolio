@@ -1,7 +1,8 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { getContext, onMount } from 'svelte';
 	import ToolPill from './toolPill.svelte';
 	import { fade } from 'svelte/transition';
+	import { theme } from '../../stores';
 
 	export let name: string = '';
 	export let description: string = '';
@@ -10,26 +11,24 @@
 	export let imageLink: string = '';
 	export let tools: string[] = [];
 	export let leftImage = true;
-
 	export let isVisible = false;
-	let self: HTMLDivElement;
+
+	let themeValue: string;
+	theme.subscribe((value) => {
+		themeValue = value;
+	});
 </script>
 
-<div
-	class="project-card-container"
-	class:left-image={leftImage}
-	class:is-visible={isVisible}
-	bind:this={self}
->
+<div class="project-card-container" class:left-image={leftImage} class:is-visible={isVisible}>
 	<div class="content-container" class:left-margin={!leftImage}>
 		<div class="project-name-container">
 			<h3>{name}</h3>
 			<div class="icon-links-container">
 				<a href={repoLink} target="_blank">
-					<img src="/cardIcons/github.svg" width={50} alt="Github icon" />
+					<img src={`/${themeValue}/github.svg`} width={50} alt="Github icon" />
 				</a>
 				<a href={releaseLink} target="_blank">
-					<img src="/cardIcons/externalLink.svg" width={50} alt="External link icon" />
+					<img src={`/${themeValue}/externalLink.svg`} width={50} alt="External link icon" />
 				</a>
 			</div>
 		</div>
@@ -54,6 +53,10 @@
 		border-radius: 10px;
 	}
 
+	.project-card-container:hover {
+		border: 3px solid var(--text-primary-colour);
+	}
+
 	.left-image {
 		flex-direction: row-reverse;
 	}
@@ -67,6 +70,7 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: space-around;
+		color: var(--text-secondary-colour);
 	}
 
 	.content-container h3 {

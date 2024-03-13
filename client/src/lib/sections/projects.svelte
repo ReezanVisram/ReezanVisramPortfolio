@@ -126,6 +126,10 @@
 	}
 
 	.heading-container h3 {
+		color: var(--text-secondary-colour);
+	}
+
+	.heading-container h3 {
 		transition: 0.2s ease-out;
 	}
 

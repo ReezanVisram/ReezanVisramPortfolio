@@ -145,6 +145,7 @@
 		text-align: left;
 		list-style-position: inside;
 		font-size: var(--body-font-size);
+		color: var(--text-secondary-colour);
 		overflow: hidden;
 		transition: max-height 0.4s ease-out;
 		border: none;

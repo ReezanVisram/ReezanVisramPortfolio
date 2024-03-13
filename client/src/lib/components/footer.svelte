@@ -1,5 +1,11 @@
-<script>
+<script lang="ts">
 	import Slider from '$lib/components/slider.svelte';
+	import { theme } from '../../stores';
+
+	let themeValue: string;
+	theme.subscribe((value) => {
+		themeValue = value;
+	});
 </script>
 
 <footer class="footer">
@@ -7,11 +13,11 @@
 		<h2>Reezan Visram</h2>
 		<h3>Links:</h3>
 		<a href="https://github.com/reezanvisram" target="_blank" class="icon-link">
-			<img src="/cardIcons/github.svg" alt="Github Icon" />
+			<img src={`/${themeValue}/github.svg`} alt="Github Icon" />
 			<p>Github</p>
 		</a>
-		<a href="https://linked.com/in/reezan-visram" target="_blank" class="icon-link">
-			<img src="/cardIcons/linkedin.svg" alt="LinkedIn Icon" />
+		<a href="https://linkedin.com/in/reezan-visram" target="_blank" class="icon-link">
+			<img src={`/${themeValue}/linkedin.svg`} alt="LinkedIn Icon" />
 			<p>LinkedIn</p>
 		</a>
 	</div>
@@ -36,7 +42,7 @@
 	.footer {
 		display: flex;
 		justify-content: space-between;
-		min-height: 15vh;
+		min-height: 25vh;
 	}
 
 	.links-container {
@@ -52,6 +58,7 @@
 
 	.links-container h3 {
 		font-size: var(--body-font-size);
+		color: var(--text-secondary-colour);
 	}
 
 	.icon-link {
@@ -79,6 +86,7 @@
 
 	.powered-by-text {
 		font-size: var(--body-font-size);
+		color: var(--text-secondary-colour);
 	}
 
 	.technology-icons-container {
@@ -89,12 +97,12 @@
 	}
 
 	.technology-icons-container img {
-		height: 75px;
+		height: 40px;
 		width: auto;
 	}
 
 	.large {
-		height: 50px !important;
+		height: 25px !important;
 		width: auto !important;
 	}
 </style>

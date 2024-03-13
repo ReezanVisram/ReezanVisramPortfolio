@@ -9,6 +9,7 @@
 	import Projects from '$lib/sections/projects.svelte';
 
 	import type { PageData } from './$types';
+	import { onMount } from 'svelte';
 
 	export let data: PageData;
 </script>
@@ -51,19 +52,6 @@
 		font-family: Outfit;
 	}
 
-	:global(:root) {
-		--background-colour: #ffffff;
-		--text-primary-colour: #0848a7;
-		--text-secondary-colour: #000000;
-		--text-tertiary-colour: #ffffff;
-		--button-text-colour: #ffffff;
-		--heading-font-size: 4rem;
-		--subheading-font-size: 2.5rem;
-		--body-font-size: 1.5rem;
-		--svg-filter: invert(18%) sepia(39%) saturate(5861%) hue-rotate(211deg) brightness(91%)
-			contrast(94%);
-	}
-
 	:global(*) {
 		margin: 0;
 		padding: 0;
@@ -74,5 +62,27 @@
 		margin-left: 12.5vw;
 		margin-right: 12.5vw;
 		background-color: var(--background-colour);
+		--heading-font-size: 4rem;
+		--subheading-font-size: 2.5rem;
+		--body-font-size: 1.5rem;
+		--svg-filter: brightness(0) saturate(100%) invert(18%) sepia(39%) saturate(5861%)
+			hue-rotate(211deg) brightness(91%) contrast(94%);
+		transition: background 0.4s;
+	}
+
+	:global([data-theme='light']) {
+		--background-colour: #ffffff;
+		--text-primary-colour: #0a62e6;
+		--text-secondary-colour: #000000;
+		--text-tertiary-colour: #ffffff;
+		--button-text-colour: #ffffff;
+	}
+
+	:global([data-theme='dark']) {
+		--background-colour: #000000;
+		--text-primary-colour: #0a62e6;
+		--text-secondary-colour: #ffffff;
+		--text-tertiary-colour: #000000;
+		--button-text-colour: #000000;
 	}
 </style>

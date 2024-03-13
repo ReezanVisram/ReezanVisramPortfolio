@@ -142,6 +142,7 @@
 		padding: 1rem;
 		box-sizing: border-box;
 		width: 100%;
+		color: var(--text-secondary-colour);
 	}
 
 	.placeholder-text {
@@ -196,5 +197,9 @@
 
 	.modal-body {
 		font-size: var(--body-font-size);
+	}
+
+	small {
+		color: var(--text-secondary-colour);
 	}
 </style>

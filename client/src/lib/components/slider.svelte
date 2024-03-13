@@ -1,22 +1,62 @@
 <script lang="ts">
+	import { theme } from '../../stores';
+	import { onMount } from 'svelte';
+
 	let isLightMode = true;
 
-	const handleToggle = () => {
-		isLightMode = !isLightMode;
+	const determineTheme = () => {
+		isLightMode = document.documentElement.dataset.theme == 'light' ? true : false;
+		theme.update((theme) => {
+			if (isLightMode) {
+				theme = 'light';
+			} else {
+				theme = 'dark';
+			}
+
+			return theme;
+		});
 	};
+
+	onMount(determineTheme);
+
+	const handleToggle = (themeToToggle: string) => {
+		isLightMode = !isLightMode;
+		theme.update((theme) => {
+			if (isLightMode) {
+				theme = 'light';
+			} else {
+				theme = 'dark';
+			}
+
+			return theme;
+		});
+
+		document.documentElement.dataset.theme = themeToToggle;
+		document.cookie = `siteTheme=${themeToToggle};max-age=31536000;path="/"`;
+	};
+
+	let themeValue: string;
+	theme.subscribe((value) => {
+		themeValue = value;
+	});
 </script>
 
 <div class="slider">
-	<img src="/cardIcons/sun.svg" alt="Sun Icon" width={75} class:active={isLightMode} />
-	<input type="checkbox" id="darkmode-toggle" on:click={handleToggle} />
+	<img src={`/${themeValue}/sun.svg`} alt="Sun Icon" width={50} class:active={isLightMode} />
+	<input
+		type="checkbox"
+		id="darkmode-toggle"
+		on:click={() => handleToggle(isLightMode ? 'dark' : 'light')}
+		checked={!isLightMode}
+	/>
 	<label for="darkmode-toggle" class="label"></label>
-	<img src="/cardIcons/moon.svg" alt="Moon Icon" width={75} class:active={!isLightMode} />
+	<img src={`/${themeValue}/moon.svg`} alt="Moon Icon" width={50} class:active={!isLightMode} />
 </div>
 
 <style>
 	.label {
-		width: 300px;
-		height: 50px;
+		width: 100px;
+		height: 45px;
 		position: relative;
 		display: block;
 		background-color: var(--background-colour);
@@ -30,8 +70,8 @@
 
 	.label:after {
 		content: '';
-		width: 65px;
-		height: 50px;
+		width: 50px;
+		height: 45px;
 		position: absolute;
 		top: -3px;
 		left: -3px;
@@ -49,7 +89,7 @@
 	}
 
 	input:checked + .label:after {
-		left: 297px;
+		left: 97px;
 		transform: translateX(-100%);
 	}
 
@@ -57,10 +97,6 @@
 		display: flex;
 		align-items: center;
 		gap: 0.3vw;
-	}
-
-	img {
-		transition: 0.3s;
 	}
 
 	.active {
