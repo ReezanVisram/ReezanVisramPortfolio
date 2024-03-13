@@ -1,5 +1,7 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import ToolPill from './toolPill.svelte';
+	import { fade } from 'svelte/transition';
 
 	export let name: string = '';
 	export let description: string = '';
@@ -8,9 +10,17 @@
 	export let imageLink: string = '';
 	export let tools: string[] = [];
 	export let leftImage = true;
+
+	export let isVisible = false;
+	let self: HTMLDivElement;
 </script>
 
-<div class="project-card-container" class:left-image={leftImage}>
+<div
+	class="project-card-container"
+	class:left-image={leftImage}
+	class:is-visible={isVisible}
+	bind:this={self}
+>
 	<div class="content-container" class:left-margin={!leftImage}>
 		<div class="project-name-container">
 			<h3>{name}</h3>

@@ -41,7 +41,8 @@
 		height: 100%;
 		transition: transform 0.6s;
 		transform-style: preserve-3d;
-		box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+		border: 3px solid var(--text-secondary-colour);
+		border-radius: 10px;
 	}
 
 	.interests-card-container:hover .interests-card-inner {

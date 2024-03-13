@@ -1,5 +1,6 @@
 <script lang="ts">
 	import ProjectCard from '$lib/components/projectCard.svelte';
+	import { fade, fly } from 'svelte/transition';
 
 	export let projects: any[] = [];
 
@@ -29,46 +30,51 @@
 	<h1>Projects</h1>
 
 	<div class="headings-container">
-		<div class="heading-container">
+		<div class="heading-container" class:active={isSoftwareActive}>
 			<button on:click={handleSoftwareClick}>
-				<h3 class="project-type-header" class:active={isSoftwareActive}>Software</h3>
+				<h3 class="project-type-header">Software</h3>
 			</button>
 			<p class="project-number">{softwareProjects.length}</p>
 		</div>
 
-		<div class="heading-container">
+		<div class="heading-container" class:active={!isSoftwareActive}>
 			<button on:click={handleHardwareClick}>
-				<h3 class="project-type-header" class:active={!isSoftwareActive}>Hardware</h3>
+				<h3 class="project-type-header">Hardware</h3>
 			</button>
 			<p class="project-number">{hardwareProjects.length}</p>
 		</div>
 	</div>
 
-	<div class="software-projects-cards-container" class:visible={isSoftwareActive}>
-		{#each softwareProjects as project, index}
-			<ProjectCard
-				name={project.name}
-				description={project.description}
-				repoLink={project.repo_link}
-				releaseLink={project.release_link}
-				imageLink={project.image_link}
-				tools={project.technologies}
-				leftImage={index % 2 === 0}
-			/>
-		{/each}
-	</div>
-	<div class="hardware-projects-cards-container" class:visible={!isSoftwareActive}>
-		{#each hardwareProjects as project, index}
-			<ProjectCard
-				name={project.name}
-				description={project.description}
-				repoLink={project.repo_link}
-				releaseLink={project.release_link}
-				imageLink={project.image_link}
-				tools={project.technologies}
-				leftImage={index % 2 === 0}
-			/>
-		{/each}
+	<div class="project-cards-container">
+		{#if isSoftwareActive}
+			{#each softwareProjects as project, index (project)}
+				<div in:fade|global={{ delay: 400 + index * 100, duration: 200 }} out:fade|global>
+					<ProjectCard
+						name={project.name}
+						description={project.description}
+						repoLink={project.repo_link}
+						releaseLink={project.release_link}
+						imageLink={project.image_link}
+						tools={project.technologies}
+						leftImage={index % 2 === 0}
+					/>
+				</div>
+			{/each}
+		{:else}
+			{#each hardwareProjects as project, index (project)}
+				<div in:fade|global={{ delay: 400 + index * 100, duration: 200 }} out:fade|global>
+					<ProjectCard
+						name={project.name}
+						description={project.description}
+						repoLink={project.repo_link}
+						releaseLink={project.release_link}
+						imageLink={project.image_link}
+						tools={project.technologies}
+						leftImage={index % 2 === 0}
+					/>
+				</div>
+			{/each}
+		{/if}
 	</div>
 </div>
 
@@ -79,6 +85,7 @@
 		margin-top: 2.5vh;
 		display: flex;
 		flex-direction: column;
+		position: relative;
 	}
 
 	.projects-container h1 {
@@ -90,16 +97,13 @@
 		display: flex;
 		justify-content: space-around;
 		width: 50%;
+		position: relative;
 	}
 
 	.project-type-header {
 		font-size: var(--subheading-font-size);
 		font-weight: 400;
-	}
-
-	.active {
-		font-weight: bold;
-		text-decoration: underline;
+		width: 100%;
 	}
 
 	.headings-container button {
@@ -118,6 +122,24 @@
 		gap: 1vw;
 		align-items: center;
 		width: 50%;
+		position: relative;
+	}
+
+	.heading-container h3 {
+		transition: 0.2s ease-out;
+	}
+
+	.heading-container p {
+		transition: 0.2s ease-out;
+	}
+
+	.active h3 {
+		font-weight: bold;
+		color: var(--text-primary-colour);
+	}
+
+	.active p {
+		color: var(--text-secondary-colour);
 	}
 
 	.project-number {
@@ -125,21 +147,10 @@
 		color: #aeaeae;
 	}
 
-	.software-projects-cards-container {
+	.project-cards-container {
 		display: flex;
 		flex-direction: column;
 		gap: 1vh;
-		opacity: 0;
-	}
-
-	.visible {
-		opacity: 1;
-	}
-
-	.hardware-projects-cards-container {
-		display: flex;
-		flex-direction: column;
-		gap: 1vh;
-		opacity: 0;
+		margin-top: 2.5vh;
 	}
 </style>
