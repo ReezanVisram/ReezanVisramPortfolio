@@ -192,10 +192,12 @@
 	}
 
 	.modal-heading {
+		color: var(--text-secondary-colour);
 		font-size: var(--subheading-font-size);
 	}
 
 	.modal-body {
+		color: var(--text-secondary-colour);
 		font-size: var(--body-font-size);
 	}
 

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { theme } from '../../stores';
 	import AnimatedX from './animatedX.svelte';
 	import Checkmark from './checkmark.svelte';
 
@@ -8,6 +9,12 @@
 	let dialog: HTMLDialogElement;
 
 	$: if (showModal && dialog) dialog.showModal();
+
+	let themeValue: string;
+
+	theme.subscribe((value) => {
+		themeValue = value;
+	});
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
@@ -22,7 +29,7 @@
 		<div class="dialog-heading-container">
 			<slot name="dialog-heading" />
 			<button class="dialog-close-button" on:click={() => dialog.close()}>
-				<img src="/cardIcons/x.svg" width={32} alt="X icon" />
+				<img src={`/${themeValue}/x.svg`} width={32} alt="X icon" />
 			</button>
 		</div>
 
@@ -46,10 +53,11 @@
 		padding: 0;
 		margin: auto;
 		overflow: hidden;
+		background-color: var(--background-colour);
 	}
 
 	.dialog::backdrop {
-		background: rgba(0, 0, 0, 0.3);
+		background: var(--backdrop-colour);
 	}
 
 	.dialog[open] {

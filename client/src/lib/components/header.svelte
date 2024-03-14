@@ -1,4 +1,8 @@
 <script lang="ts">
+	import Hamburger from './hamburger.svelte';
+
+	export let isMobileScreen: boolean;
+
 	const scrollIntoView = (event: MouseEvent) => {
 		const target = event.currentTarget as HTMLAnchorElement;
 
@@ -21,21 +25,25 @@
 <nav class="header">
 	<h2 class="header-logo">Reezan Visram</h2>
 
-	<div class="header-links-container">
-		<a class="header-link" href="#education-section" on:click|preventDefault={scrollIntoView}
-			>Education</a
-		>
-		<a class="header-link" href="#experience-section" on:click|preventDefault={scrollIntoView}
-			>Experience</a
-		>
-		<a class="header-link" href="#projects-section" on:click|preventDefault={scrollIntoView}
-			>Projects</a
-		>
-		<a class="header-link" href="#contact-me-section" on:click|preventDefault={scrollIntoView}
-			>Contact Me</a
-		>
-		<a class="header-button" href="/resume">Resume</a>
-	</div>
+	{#if !isMobileScreen}
+		<div class="header-links-container">
+			<a class="header-link" href="#education-section" on:click|preventDefault={scrollIntoView}
+				>Education</a
+			>
+			<a class="header-link" href="#experience-section" on:click|preventDefault={scrollIntoView}
+				>Experience</a
+			>
+			<a class="header-link" href="#projects-section" on:click|preventDefault={scrollIntoView}
+				>Projects</a
+			>
+			<a class="header-link" href="#contact-me-section" on:click|preventDefault={scrollIntoView}
+				>Contact Me</a
+			>
+			<a class="header-button" href="/resume">Resume</a>
+		</div>
+	{:else}
+		<Hamburger />
+	{/if}
 </nav>
 
 <style>
@@ -53,7 +61,7 @@
 	.header-logo {
 		font-size: 2rem;
 		color: var(--text-primary-colour);
-		margin-right: 25%;
+		flex-grow: 1;
 	}
 
 	.header-link {

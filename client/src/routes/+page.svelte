@@ -9,10 +9,27 @@
 	import Projects from '$lib/sections/projects.svelte';
 
 	import type { PageData } from './$types';
-	import { onMount } from 'svelte';
+	import SideBar from '$lib/components/sideBar.svelte';
+	import { expandSidebar } from '../stores';
 
 	export let data: PageData;
+
+	let isMobileScreen = false;
+
+	let innerWidth: number;
+
+	let expandSidebarValue: boolean;
+	expandSidebar.subscribe((value) => {
+		expandSidebarValue = value;
+	});
+
+	$: isMobileScreen = innerWidth <= 1200;
+	$: if (expandSidebarValue && !isMobileScreen) {
+		expandSidebar.update((value) => (value = false));
+	}
 </script>
+
+<svelte:window bind:innerWidth />
 
 <svelte:head>
 	<script
@@ -22,29 +39,34 @@
 	</script>
 </svelte:head>
 
-<Header />
+{#if innerWidth}
+	<Header {isMobileScreen} />
+	{#if isMobileScreen && expandSidebarValue}
+		<SideBar />
+	{/if}
 
-<section id="about-me-section">
-	<AboutMe />
-</section>
+	<section id="about-me-section">
+		<AboutMe />
+	</section>
 
-<section id="interests-section">
-	<Interests />
-</section>
-<section id="education-section">
-	<Education />
-</section>
-<section id="experience-section">
-	<Experience experience={data.experience} />
-</section>
-<section id="projects-section">
-	<Projects projects={data.projects} />
-</section>
-<section id="contact-me-section">
-	<ContactMe />
-</section>
+	<section id="interests-section">
+		<Interests />
+	</section>
+	<section id="education-section">
+		<Education />
+	</section>
+	<section id="experience-section">
+		<Experience experience={data.experience} />
+	</section>
+	<section id="projects-section">
+		<Projects projects={data.projects} />
+	</section>
+	<section id="contact-me-section">
+		<ContactMe />
+	</section>
 
-<Footer />
+	<Footer />
+{/if}
 
 <style>
 	@font-face {
@@ -70,12 +92,17 @@
 		transition: background 0.4s;
 	}
 
+	:global(.sideBarExpanded) {
+		overflow-y: hidden;
+	}
+
 	:global([data-theme='light']) {
 		--background-colour: #ffffff;
 		--text-primary-colour: #0a62e6;
 		--text-secondary-colour: #000000;
 		--text-tertiary-colour: #ffffff;
 		--button-text-colour: #ffffff;
+		--backdrop-colour: rgba(0, 0, 0, 0.3);
 	}
 
 	:global([data-theme='dark']) {
@@ -84,5 +111,16 @@
 		--text-secondary-colour: #ffffff;
 		--text-tertiary-colour: #000000;
 		--button-text-colour: #000000;
+		--backdrop-colour: rgba(255, 255, 255, 0.3);
+	}
+
+	@media (max-width: 1280px) {
+		:global(body) {
+			--heading-font-size: 2.5rem;
+			--subheading-font-size: 1.75rem;
+			--body-font-size: 1rem;
+			margin-left: 3vw;
+			margin-right: 3vw;
+		}
 	}
 </style>
