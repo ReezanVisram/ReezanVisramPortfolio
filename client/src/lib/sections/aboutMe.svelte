@@ -98,4 +98,26 @@
 			opacity: 1;
 		}
 	}
+
+	@media (max-width: 1600px) {
+		.headshot-container {
+			width: 40%;
+		}
+	}
+
+	@media (max-width: 1200px) {
+		.about-me-container {
+			width: 100%;
+			flex-direction: column;
+		}
+
+		.intro-text-container {
+			width: 100%;
+			margin-top: 30%;
+		}
+
+		.headshot-container {
+			margin-bottom: auto;
+		}
+	}
 </style>

@@ -50,9 +50,32 @@
 	}
 
 	.uwaterloo {
-		width: 680px;
+		width: 640px;
 		height: auto;
 		border-radius: 10px;
 		box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+	}
+
+	@media (max-width: 1600px) {
+		.uwaterloo {
+			width: 480px;
+		}
+	}
+
+	@media (max-width: 1200px) {
+		.education-container {
+			flex-direction: column;
+			justify-content: space-around;
+			align-items: center;
+		}
+
+		.text-container {
+			width: 100%;
+			text-align: center;
+		}
+
+		.uwaterloo {
+			width: 100%;
+		}
 	}
 </style>

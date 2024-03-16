@@ -113,4 +113,24 @@
 	.icon-links-container {
 		margin-left: 1vw;
 	}
+
+	@media (max-width: 1024px) {
+		.project-card-container {
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.content-container {
+			width: 100%;
+			text-align: center;
+		}
+
+		.project-name-container {
+			width: fit-content;
+		}
+
+		.tools-container {
+			justify-content: space-around;
+		}
+	}
 </style>

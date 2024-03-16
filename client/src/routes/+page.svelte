@@ -114,7 +114,7 @@
 		--backdrop-colour: rgba(255, 255, 255, 0.3);
 	}
 
-	@media (max-width: 1280px) {
+	@media (max-width: 800px) {
 		:global(body) {
 			--heading-font-size: 2.5rem;
 			--subheading-font-size: 1.75rem;

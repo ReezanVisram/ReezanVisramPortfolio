@@ -52,7 +52,7 @@
 				frontCardBulletPoints={cloudInfraBulletPoints}
 				frontCardSvgPath="/cardIcons/cloud.svg"
 				backCardTitle="Music"
-				backCardText="You can often find me with headphones in listening to music. I enjoy basically all genres of music; my playlist is a mix of all kinds of things, from Hip-Hop and Afro to Rock and EDM."
+				backCardText="You can often find me with headphones in listening to music. I enjoy basically all genres of music, from Hip-Hop and Afro to Rock and EDM."
 				backCardSvgPath="/cardIcons/music.svg"
 			/>
 		</div>
@@ -62,7 +62,10 @@
 <style>
 	.interests-container {
 		text-align: center;
-		min-height: 60vh;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-around;
 	}
 
 	.interests-container h1 {
@@ -73,12 +76,42 @@
 	.interests-cards-container {
 		margin-top: 2.5vh;
 		display: flex;
-		justify-content: space-between;
-		width: 100%;
+		gap: 0.5vw;
 	}
 
 	.interests-card {
-		min-width: 400px;
-		min-height: 400px;
+		width: 400px;
+		height: 400px;
+	}
+
+	/* @media (max-width: 1366px) {
+		.interests-cards-container {
+			flex-direction: column;
+		}
+	} */
+
+	@media (max-width: 1280px) {
+		.interests-cards-container {
+			gap: 1vw;
+		}
+
+		.interests-card {
+			width: 350px;
+			height: 350px;
+		}
+	}
+
+	@media (max-width: 1100px) {
+		.interests-cards-container {
+			flex-direction: column;
+			gap: 1vh;
+		}
+	}
+
+	@media (max-width: 800px) {
+		.interests-card {
+			width: 300px;
+			height: 300px;
+		}
 	}
 </style>

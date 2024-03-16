@@ -122,7 +122,8 @@
 		flex-direction: column;
 		width: 67%;
 		justify-content: space-between;
-		gap: 1vh;
+		gap: 2vh;
+		margin-top: 1vh;
 	}
 
 	.input-container {

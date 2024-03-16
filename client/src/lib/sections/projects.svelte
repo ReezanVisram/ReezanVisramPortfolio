@@ -34,14 +34,12 @@
 			<button on:click={handleSoftwareClick}>
 				<h3 class="project-type-header">Software</h3>
 			</button>
-			<p class="project-number">{softwareProjects.length}</p>
 		</div>
 
-		<div class="heading-container" class:active={!isSoftwareActive}>
+		<div class="heading-container hardware" class:active={!isSoftwareActive}>
 			<button on:click={handleHardwareClick}>
 				<h3 class="project-type-header">Hardware</h3>
 			</button>
-			<p class="project-number">{hardwareProjects.length}</p>
 		</div>
 	</div>
 
@@ -95,9 +93,8 @@
 
 	.headings-container {
 		display: flex;
-		justify-content: space-around;
-		width: 50%;
-		position: relative;
+		justify-content: space-between;
+		width: 100%;
 	}
 
 	.project-type-header {
@@ -116,39 +113,17 @@
 		cursor: pointer;
 	}
 
-	.heading-container {
-		display: flex;
-		align-items: center;
-		gap: 1vw;
-		align-items: center;
-		width: 50%;
-		position: relative;
-	}
-
 	.heading-container h3 {
 		color: var(--text-secondary-colour);
 	}
 
 	.heading-container h3 {
-		transition: 0.2s ease-out;
-	}
-
-	.heading-container p {
 		transition: 0.2s ease-out;
 	}
 
 	.active h3 {
 		font-weight: bold;
 		color: var(--text-primary-colour);
-	}
-
-	.active p {
-		color: var(--text-secondary-colour);
-	}
-
-	.project-number {
-		font-size: var(--body-font-size);
-		color: #aeaeae;
 	}
 
 	.project-cards-container {

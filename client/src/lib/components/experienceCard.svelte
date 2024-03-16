@@ -66,6 +66,7 @@
 		text-align: left;
 		border: none;
 		outline: none;
+		display: flex;
 	}
 
 	.experience-card-button:hover {
@@ -81,15 +82,12 @@
 	}
 
 	.plus-minus-container {
-		position: absolute;
-		right: 0;
-		width: 100px;
+		width: 10%;
 		height: 100px;
-		top: 0;
-		bottom: 0;
 		margin-top: auto;
+		position: relative;
 		margin-bottom: auto;
-		margin-right: 10px;
+		margin-right: 20px;
 		transition: transform 0.4s ease-out;
 	}
 
@@ -99,7 +97,7 @@
 
 	.plus-minus-container span:first-child {
 		position: absolute;
-		height: 50px;
+		height: 50%;
 		inset: 0;
 		margin-top: auto;
 		margin-left: auto;
@@ -111,7 +109,7 @@
 
 	.plus-minus-container span:last-child {
 		position: absolute;
-		height: 50px;
+		height: 50%;
 		inset: 0;
 		margin-top: auto;
 		margin-left: auto;
@@ -135,6 +133,7 @@
 		color: var(--text-secondary-colour);
 		font-size: var(--body-font-size);
 		padding: 0.5em;
+		flex-grow: 1;
 	}
 
 	.experience-information h3 {
@@ -168,5 +167,12 @@
 		margin-top: 1vh;
 		flex-wrap: wrap;
 		gap: 1vh;
+	}
+
+	@media (max-width: 800px) {
+		.plus-minus-container {
+			width: 5%;
+			height: 50px;
+		}
 	}
 </style>

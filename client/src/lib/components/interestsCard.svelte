@@ -6,9 +6,15 @@
 	export let backCardTitle = 'Default Card Title';
 	export let backCardText: string = '';
 	export let backCardSvgPath = '/cardIcons/software.svg';
+
+	let isFrontShown = true;
+
+	const handleClick = () => {
+		isFrontShown = !isFrontShown;
+	};
 </script>
 
-<div class="interests-card-container">
+<button class="interests-card-container" on:click={handleClick} class:show-back={!isFrontShown}>
 	<div class="interests-card-inner">
 		<div class="interests-card-front">
 			<h3>{frontCardTitle}</h3>
@@ -25,14 +31,20 @@
 			<img src={backCardSvgPath} alt="Card Type Icon" width={65} />
 		</div>
 	</div>
-</div>
+</button>
 
 <style>
 	.interests-card-container {
-		background-color: transparent;
+		background-color: var(--background-colour);
 		width: 100%;
 		height: 100%;
 		perspective: 1000px;
+		border: none;
+		outline: none;
+	}
+
+	.interests-card-container:hover {
+		cursor: pointer;
 	}
 
 	.interests-card-inner {
@@ -45,7 +57,7 @@
 		border-radius: 10px;
 	}
 
-	.interests-card-container:hover .interests-card-inner {
+	.show-back .interests-card-inner {
 		transform: rotateY(180deg);
 	}
 
@@ -56,6 +68,7 @@
 		height: 100%;
 		-webkit-backface-visibility: hidden;
 		backface-visibility: hidden;
+		transform: rotateX(0deg);
 	}
 
 	.interests-card-back {
