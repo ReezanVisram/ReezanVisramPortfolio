@@ -31,6 +31,10 @@ func decodeMessageRequest(payload []byte) (*MessageRequest, error) {
 		return nil, ErrInvalidMessageRequestBody
 	}
 
+	if messageRequest.Name == "" || messageRequest.Email == "" || messageRequest.Subject == "" || messageRequest.Message == "" || messageRequest.Token == "" {
+		return nil, ErrInvalidMessageRequestBody
+	}
+
 	return messageRequest, nil
 }
 
