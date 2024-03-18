@@ -111,4 +111,10 @@
 			width: calc(0.9 * (100% + 25vw));
 		}
 	}
+
+	@media (max-width: 800px) {
+		.action-buttons-container {
+			width: calc(0.9 * (100% + 6vw));
+		}
+	}
 </style>

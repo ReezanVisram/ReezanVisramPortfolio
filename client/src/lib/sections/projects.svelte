@@ -79,8 +79,6 @@
 <style>
 	.projects-container {
 		text-align: center;
-		min-height: 45vh;
-		margin-top: 2.5vh;
 		display: flex;
 		flex-direction: column;
 		position: relative;

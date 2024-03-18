@@ -87,8 +87,8 @@
 		--heading-font-size: 4rem;
 		--subheading-font-size: 2.5rem;
 		--body-font-size: 1.5rem;
-		--svg-filter: brightness(0) saturate(100%) invert(18%) sepia(39%) saturate(5861%)
-			hue-rotate(211deg) brightness(91%) contrast(94%);
+		--svg-filter: brightness(0) saturate(100%) invert(22%) sepia(97%) saturate(3338%)
+			hue-rotate(212deg) brightness(96%) contrast(92%);
 		transition: background 0.4s;
 	}
 
@@ -122,5 +122,9 @@
 			margin-left: 3vw;
 			margin-right: 3vw;
 		}
+	}
+
+	section {
+		margin-bottom: 5vh;
 	}
 </style>

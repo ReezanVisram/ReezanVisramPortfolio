@@ -42,7 +42,7 @@
 </script>
 
 <div class="slider">
-	<img src={`/${themeValue}/sun.svg`} alt="Sun Icon" width={50} class:active={isLightMode} />
+	<img src={`/${themeValue}/sun.svg`} alt="Sun Icon" width={40} class:active={isLightMode} />
 	<input
 		type="checkbox"
 		id="darkmode-toggle"
@@ -50,13 +50,13 @@
 		checked={!isLightMode}
 	/>
 	<label for="darkmode-toggle" class="label"></label>
-	<img src={`/${themeValue}/moon.svg`} alt="Moon Icon" width={50} class:active={!isLightMode} />
+	<img src={`/${themeValue}/moon.svg`} alt="Moon Icon" width={40} class:active={!isLightMode} />
 </div>
 
 <style>
 	.label {
 		width: 100px;
-		height: 45px;
+		height: 40px;
 		position: relative;
 		display: block;
 		background-color: var(--background-colour);
@@ -71,7 +71,7 @@
 	.label:after {
 		content: '';
 		width: 50px;
-		height: 45px;
+		height: 40px;
 		position: absolute;
 		top: -3px;
 		left: -3px;

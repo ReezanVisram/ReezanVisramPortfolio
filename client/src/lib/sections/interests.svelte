@@ -84,12 +84,6 @@
 		height: 400px;
 	}
 
-	/* @media (max-width: 1366px) {
-		.interests-cards-container {
-			flex-direction: column;
-		}
-	} */
-
 	@media (max-width: 1280px) {
 		.interests-cards-container {
 			gap: 1vw;

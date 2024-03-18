@@ -100,8 +100,6 @@
 <style>
 	.contact-me-container {
 		text-align: center;
-		min-height: 45vh;
-		margin-top: 5vh;
 		display: flex;
 		flex-direction: column;
 		align-items: center;

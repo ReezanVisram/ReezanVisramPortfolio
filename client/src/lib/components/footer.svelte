@@ -22,17 +22,15 @@
 		</a>
 	</div>
 	<div class="icons-and-slider-container">
-		<div>
-			<p class="powered-by-text">Powered By</p>
-			<div class="technology-icons-container">
-				<img src="/cardIcons/go.svg" alt="Go Icon" class="large" />
-				<img src="/cardIcons/go-chi.svg" alt="Go-Chi Icon" class="large" />
-				<img src="/cardIcons/python.svg" alt="Python Icon" />
-				<img src="/cardIcons/mongodb.svg" alt="MongoDB Icon" />
-				<img src="/cardIcons/gcp.svg" alt="GCP Icon" />
-				<img src="/cardIcons/svelte.svg" alt="Svelte Icon" />
-				<img src="/cardIcons/typescript.svg" alt="TypeScript Icon" />
-			</div>
+		<p class="powered-by-text">Powered By</p>
+		<div class="technology-icons-container">
+			<img src="/cardIcons/go.svg" alt="Go Icon" class="large" />
+			<img src="/cardIcons/go-chi.svg" alt="Go-Chi Icon" class="large" />
+			<img src="/cardIcons/python.svg" alt="Python Icon" />
+			<img src="/cardIcons/mongodb.svg" alt="MongoDB Icon" />
+			<img src="/cardIcons/gcp.svg" alt="GCP Icon" />
+			<img src="/cardIcons/svelte.svg" alt="Svelte Icon" />
+			<img src="/cardIcons/typescript.svg" alt="TypeScript Icon" />
 		</div>
 		<Slider />
 	</div>
@@ -42,13 +40,13 @@
 	.footer {
 		display: flex;
 		justify-content: space-between;
-		min-height: 25vh;
+		margin-bottom: 2vh;
 	}
 
 	.links-container {
 		display: flex;
 		flex-direction: column;
-		justify-content: space-around;
+		gap: 0.5vh;
 	}
 
 	.links-container h2 {
@@ -104,5 +102,17 @@
 	.large {
 		height: 25px !important;
 		width: auto !important;
+	}
+
+	@media (max-width: 800px) {
+		.links-container {
+			justify-content: space-around;
+		}
+		.icons-and-slider-container {
+			gap: 2vh;
+		}
+		.technology-icons-container {
+			flex-wrap: wrap;
+		}
 	}
 </style>

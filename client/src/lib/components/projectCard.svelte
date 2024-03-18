@@ -27,9 +27,11 @@
 				<a href={repoLink} target="_blank">
 					<img src={`/${themeValue}/github.svg`} width={50} alt="Github icon" />
 				</a>
-				<a href={releaseLink} target="_blank">
-					<img src={`/${themeValue}/externalLink.svg`} width={50} alt="External link icon" />
-				</a>
+				{#if releaseLink}
+					<a href={releaseLink} target="_blank">
+						<img src={`/${themeValue}/externalLink.svg`} width={50} alt="External link icon" />
+					</a>
+				{/if}
 			</div>
 		</div>
 		<p>{description}</p>
@@ -126,7 +128,16 @@
 		}
 
 		.project-name-container {
-			width: fit-content;
+			width: 100%;
+			justify-content: space-around;
+		}
+
+		.icon-links-container {
+			margin: 0;
+		}
+
+		.icon-links-container img {
+			width: 40px;
 		}
 
 		.tools-container {
