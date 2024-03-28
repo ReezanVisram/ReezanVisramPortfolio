@@ -152,7 +152,7 @@
 	}
 
 	.bullet-points-container-active {
-		max-height: 100vh;
+		max-height: 150vh;
 	}
 
 	.bullet-points-content {
@@ -162,7 +162,7 @@
 	.tools-container {
 		display: flex;
 		flex-direction: row;
-		justify-content: space-around;
+		justify-content: center;
 		align-items: center;
 		margin-top: 1vh;
 		flex-wrap: wrap;
