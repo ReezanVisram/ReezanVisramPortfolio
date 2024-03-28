@@ -169,17 +169,8 @@
 		gap: 1vh;
 	}
 
-	ul {
-		list-style-position: outside;
-		padding-left: 2%;
-		padding-right: 2%;
-	}
-
-	@media (max-width: 1280px) {
-		ul {
-			padding-left: 4%;
-			padding-right: 4%;
-		}
+	li {
+		margin-left: 1em;
 	}
 
 	@media (max-width: 800px) {
@@ -188,12 +179,4 @@
 			height: 50px;
 		}
 	}
-
-	@media (max-width: 400px) {
-		ul {
-			padding-left: 6%;
-			padding-right: 6%;
-		}
-	}
-
 </style>

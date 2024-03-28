@@ -1,19 +1,23 @@
 <div class="education-container">
+	<enhanced:img
+	class="uwaterloo"
+	src="/static/uwaterloo.webp"
+	alt="A picture of the University of Waterlo Campus, taken by me from the E5 Fourth Floor Balcony"
+/>
 	<div class="text-container">
 		<h1>Education</h1>
 		<h2>University of Waterloo</h2>
 		<h3>Candidate for Bachelor of Applied Science in Honours Computer Engineering Co-op</h3>
 		<h3>September 2021 - April 2026</h3>
-		<p>90% Cumulative Average</p>
-		<p>Term Dean's Honours List</p>
-		<p>Recepient of Richard and Elizabeth Madter Scholarship for Outstanding Students</p>
-		<p>Recepient of President's Scholarship of Distinction for admission average of 99%</p>
+		<ul>
+			<li>90% Cumulative Average</li>
+			<li>Term Dean's Honours List</li>
+			<li>Recepient of Richard and Elizabeth Madter Scholarship for Outstanding Students</li>
+			<li>Recepient of President's Scholarship of Distinction for admission average of 99%</li>
+		</ul>
+
 	</div>
-	<enhanced:img
-		class="uwaterloo"
-		src="/static/uwaterloo.webp"
-		alt="A picture of the University of Waterlo Campus, taken by me from the E5 Fourth Floor Balcony"
-	/>
+
 </div>
 
 <style>
@@ -26,7 +30,15 @@
 
 	.text-container {
 		width: 33%;
-		text-align: right;
+	}
+
+	ul {
+		font-size: var(--body-font-size);
+	}
+
+	li {
+		margin-left: 1em;
+		color: var(--text-secondary-colour);
 	}
 
 	.text-container h1 {
@@ -40,11 +52,6 @@
 	}
 
 	.text-container h3 {
-		font-size: var(--body-font-size);
-		color: var(--text-secondary-colour);
-	}
-
-	.text-container p {
 		font-size: var(--body-font-size);
 		color: var(--text-secondary-colour);
 	}
@@ -64,9 +71,13 @@
 
 	@media (max-width: 1200px) {
 		.education-container {
-			flex-direction: column;
+			flex-direction: column-reverse;
 			justify-content: space-around;
 			align-items: center;
+		}
+
+		ul {
+			list-style: none;
 		}
 
 		.text-container {

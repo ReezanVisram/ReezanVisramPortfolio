@@ -104,11 +104,17 @@
 	.headings-container button {
 		outline: none;
 		border: none;
+		border-radius: 10px;
+		padding: 10px 2px;
 		background-color: var(--background-colour);
 	}
 
 	.headings-container button:hover {
 		cursor: pointer;
+	}
+
+	.headings-container button:hover h3 {
+		color: var(--text-primary-colour);
 	}
 
 	.heading-container h3 {

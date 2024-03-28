@@ -95,9 +95,12 @@
 		text-align: left;
 		font-size: var(--body-font-size);
 		color: var(--text-secondary-colour);
-		list-style-position: inside;
 		padding-top: 2vh;
 		margin-left: 0.5vw;
+	}
+
+	.bullet-points-container li {
+		margin-left: 1em;
 	}
 
 	.interests-card-container img {

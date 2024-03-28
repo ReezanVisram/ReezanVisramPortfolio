@@ -48,12 +48,11 @@
 	<section id="about-me-section">
 		<AboutMe />
 	</section>
-
-	<section id="interests-section">
-		<Interests />
-	</section>
 	<section id="education-section">
 		<Education />
+	</section>
+	<section id="interests-section">
+		<Interests />
 	</section>
 	<section id="experience-section">
 		<Experience experience={data.experience} />
