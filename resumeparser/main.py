@@ -78,7 +78,7 @@ def parse_experience(elements: List[LTTextContainer]) -> dict:
             is_in_experience_section = True
             is_first_line_in_specific_job = True
             continue
-        elif "Projects" in line:
+        elif "Projects" in line or "Experience" in line:
             is_in_experience_section = False
             break
 
