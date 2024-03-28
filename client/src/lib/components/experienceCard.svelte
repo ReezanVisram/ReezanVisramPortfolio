@@ -20,7 +20,7 @@
 		on:click={handleOnClick}
 	>
 		<div class="experience-information">
-			<h3>{`${jobTitle} at ${company}`}</h3>
+			<h3>{`${jobTitle} at `}<span>{`${company}`}</span></h3>
 			<h3>{startAndEndDate}</h3>
 		</div>
 		<div class="plus-minus-container">
@@ -140,9 +140,12 @@
 		font-weight: 400;
 	}
 
+	h3 span {
+		font-weight: 600;
+	}
+
 	.bullet-points-container {
 		text-align: left;
-		/* list-style-position: inside; */
 		font-size: var(--body-font-size);
 		color: var(--text-secondary-colour);
 		overflow: hidden;

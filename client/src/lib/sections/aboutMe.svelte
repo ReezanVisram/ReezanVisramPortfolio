@@ -109,6 +109,7 @@
 		.about-me-container {
 			width: 100%;
 			flex-direction: column;
+			min-height: 90vh;
 		}
 
 		.intro-text-container {
