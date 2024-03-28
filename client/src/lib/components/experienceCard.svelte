@@ -142,7 +142,7 @@
 
 	.bullet-points-container {
 		text-align: left;
-		list-style-position: inside;
+		/* list-style-position: inside; */
 		font-size: var(--body-font-size);
 		color: var(--text-secondary-colour);
 		overflow: hidden;
@@ -169,10 +169,31 @@
 		gap: 1vh;
 	}
 
+	ul {
+		list-style-position: outside;
+		padding-left: 2%;
+		padding-right: 2%;
+	}
+
+	@media (max-width: 1280px) {
+		ul {
+			padding-left: 4%;
+			padding-right: 4%;
+		}
+	}
+
 	@media (max-width: 800px) {
 		.plus-minus-container {
 			width: 5%;
 			height: 50px;
 		}
 	}
+
+	@media (max-width: 400px) {
+		ul {
+			padding-left: 6%;
+			padding-right: 6%;
+		}
+	}
+
 </style>
