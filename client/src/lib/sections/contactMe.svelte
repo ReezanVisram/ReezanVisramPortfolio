@@ -62,17 +62,17 @@
 
 	<form class="contact-form-container" on:submit|preventDefault={handleSubmit}>
 		<div class="input-container">
-			<input type="text" name="name" required autocomplete="off" class="input" placeholder="" />
+			<input id="name" type="text" name="name" required autocomplete="off" class="input" placeholder="" />
 			<label class="placeholder-text" for="name" id="placeholder-name">Name</label>
 		</div>
 
 		<div class="input-container">
-			<input type="text" name="email" required autocomplete="off" class="input" placeholder="" />
+			<input id="email" type="text" name="email" required autocomplete="off" class="input" placeholder="" />
 			<label class="placeholder-text" for="email" id="placeholder-email">Email</label>
 		</div>
 
 		<div class="input-container">
-			<input type="text" name="subject" required autocomplete="off" class="input" placeholder="" />
+			<input id="subject" type="text" name="subject" required autocomplete="off" class="input" placeholder="" />
 			<label class="placeholder-text" for="subject" id="placeholder-email">Subject</label>
 		</div>
 		<div class="input-container">
@@ -84,6 +84,7 @@
 				autocomplete="off"
 				class="input"
 				placeholder=""
+				id="message"
 			/>
 			<label class="placeholder-text" for="message" id="placeholder-email">Message</label>
 		</div>
