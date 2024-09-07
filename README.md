@@ -6,4 +6,4 @@ This is my personal website showcasing my academics, work experience, and projec
 2. Backend - Written in Go, receives webhooks from Github whenever I star a repository, and uses that to populate the "Projects" section on the site. The backend is also responsible for serving the contents of the website that are stored in MongoDB.
 3. Frontend - Written using Svelte, this is the client-facing component of the site.
 
-Check out the website [Here](https://reezanvisram.com).
+Check out the website [here!](https://reezanvisram.com).
