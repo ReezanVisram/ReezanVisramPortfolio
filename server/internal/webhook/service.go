@@ -28,7 +28,7 @@ type WebhookService interface {
 	HandleStarWebhookDeleted(ctx context.Context, repoId int64) error
 }
 
-var specialTechnologyCases = map[string]string{"opengl": "OpenGL", "cpp": "C++", "nodejs": "Node.js", "mysql": "MySQL", "fpga": "FPGA", "html": "HTML", "css": "CSS", "axi4-stream": "AXI4-Stream", "i2s": "I2S", "uart": "UART", "vga": "VGA"}
+var specialTechnologyCases = map[string]string{"opengl": "OpenGL", "cpp": "C++", "nodejs": "Node.js", "mysql": "MySQL", "fpga": "FPGA", "html": "HTML", "css": "CSS", "axi4-stream": "AXI4-Stream", "i2s": "I2S", "uart": "UART", "vga": "VGA", "mongodb", "MonogDB"}
 
 type webhookService struct {
 	logger            *slog.Logger
