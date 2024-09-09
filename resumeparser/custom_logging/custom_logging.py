@@ -1,6 +1,7 @@
 import datetime as dt
 import json
 import logging
+import logging.config
 
 
 config = {

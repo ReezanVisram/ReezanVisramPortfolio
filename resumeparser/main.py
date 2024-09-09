@@ -164,3 +164,23 @@ def parse_resume(cloud_event):
 
     save_experience_to_mongodb(experience)
     logger.info("successfully saved experience to mongodb")
+
+
+if __name__ == "__main__":
+    logger = setup_logging()
+
+    download_resume(
+        CLOUDSTORAGE_FILENAME_TO_FETCH, CLOUDSTORAGE_FILENAME_TO_DOWNLOAD_TO
+    )
+    logger.info("successfully downloaded resume")
+
+    params = LAParams(line_margin=0.0)
+
+    elements = extract_text_from_resume(params, CLOUDSTORAGE_FILENAME_TO_DOWNLOAD_TO)
+    logger.info("successfully extracted elements from resume")
+
+    experience = parse_experience(elements)
+    logger.info("successfully parsed experience")
+
+    save_experience_to_mongodb(experience)
+    logger.info("successfully saved experience to mongodb")
