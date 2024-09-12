@@ -10,8 +10,8 @@
 		<h3>Candidate for Bachelor of Applied Science in Honours Computer Engineering Co-op</h3>
 		<h3>September 2021 - April 2026</h3>
 		<ul>
-			<li>90% Cumulative Average</li>
-			<li>Term Dean's Honours List</li>
+			<li>91% Cumulative Average</li>
+			<li>Recipient of Term Dean's Honours List (2 terms)</li>
 			<li>Recepient of Richard and Elizabeth Madter Scholarship for Outstanding Students</li>
 			<li>Recepient of President's Scholarship of Distinction for admission average of 99%</li>
 		</ul>
