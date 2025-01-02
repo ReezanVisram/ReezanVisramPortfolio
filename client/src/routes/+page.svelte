@@ -105,11 +105,11 @@
 	}
 
 	:global([data-theme='dark']) {
-		--background-colour: #000000;
+		--background-colour: #18181d;
 		--text-primary-colour: #0a62e6;
 		--text-secondary-colour: #ffffff;
-		--text-tertiary-colour: #000000;
-		--button-text-colour: #000000;
+		--text-tertiary-colour: #18181d;
+		--button-text-colour: #18181d;
 		--backdrop-colour: rgba(255, 255, 255, 0.3);
 	}
 
