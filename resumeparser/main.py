@@ -80,7 +80,7 @@ def parse_experience(elements: List[LTTextContainer]) -> dict:
             continue
         elif "Projects" in line or "Education" in line:
             is_in_experience_section = False
-            break
+            continue 
 
         if is_in_experience_section:
             if line.split(" ", 1)[0] == "Tools:":
