@@ -94,10 +94,13 @@ def parse_experience(elements: List[LTTextContainer]) -> dict:
             if is_in_specific_job:
                 if is_first_line_in_specific_job:
                     company_name = line
-                    init_company(experience, company_name)
-                    is_first_line_in_specific_job = False
-                    continue
+                    if company_name != "":
+                        init_company(experience, company_name)
+                        is_first_line_in_specific_job = False
+                        continue
                 else:
+                    print(company_name)
+                    print(experience[company_name])
                     if is_job_title(line):
                         experience[company_name]["job_title"] = line
                     elif is_start_and_end_date(line):
@@ -158,11 +161,9 @@ def parse_resume(cloud_event):
 
     elements = extract_text_from_resume(params, CLOUDSTORAGE_FILENAME_TO_DOWNLOAD_TO)
     logger.info("successfully extracted elements from resume")
-    print(elements)
 
     experience = parse_experience(elements)
     logger.info("successfully parsed experience")
-    print(experience)
 
     save_experience_to_mongodb(experience)
     logger.info("successfully saved experience to mongodb")
